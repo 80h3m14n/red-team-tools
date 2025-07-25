@@ -38,6 +38,7 @@ red-team-tools/
 ├── post-exploitation/
 ├── reporting/
 ├── utilities/
+├── offensive-ops/
 └── README.md/
 ```
 
