@@ -1,4 +1,4 @@
-# 🛠️ pentest-tools
+# 🛠️ Red team tools, tips & tricks
 
 A collection of random custom scripts for penetration testing and red team tasks.
 
@@ -64,6 +64,9 @@ curl -s wtfismyip.com/json | jq
 curl ifconfig.me
 ```
 
+Automatically install essential hacking & dev tools on a fresh linux install
+
+\- [Install tools script](https://github.com/80h3m14n/red-team-tools/blob/main/automation/install-tools.sh)
 
 
 ---
