@@ -1,17 +1,39 @@
-# pentest-tools
-Random custom scripts for penetration testing purposes
+# 🛠️ pentest-tools
 
-- Automation scripts
-- Reconnainsance 
-- Scanning
-- Exploitaions
-- Post Exploitaion
-- Report generation
-- Notes
+A collection of random custom scripts for penetration testing and red team tasks.
 
-# Licence
-Free of use and distribution
+## 📌 Includes
 
+* 🔁 Automation scripts
+* 🔍 Reconnaissance tools
+* 📡 Scanning utilities
+* 💥 Exploitation scripts
+* 🩻 Post-exploitation helpers
+* 📄 Report generation tools
+* 🗒️ Notes & cheat sheets
 
-# Disclaimer
-The above repository is for education , I will not be held responsible for how you intend to use the tools.
+## 📂 Structure (Example)
+
+```
+pentest-tools/
+├── automation/
+├── recon/
+├── scanning/
+├── exploitation/
+├── post-exploitation/
+├── reporting/
+└── notes/
+```
+
+> Each folder contains standalone tools or scripts tailored for specific phases of a pentest.
+
+## 🧾 License
+
+Free to use, share, and modify under the MIT License.
+
+## ⚠️ Disclaimer
+
+This repository is strictly for **educational and research** purposes.
+I take **no responsibility** for misuse, illegal activity, or any damage caused by these tools.
+**Use responsibly. Don't be dumb.**
+
