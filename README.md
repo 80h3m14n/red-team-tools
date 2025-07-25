@@ -26,6 +26,19 @@ A collection of random custom scripts for penetration testing and red team tasks
 * [Tools Reference](#-tools-reference)
 * [General Notes](#-general-notes)
 
+-----
+
+📂 Repo-Structure
+```
+red-team-tools/
+├── automation/
+├── recon/
+├── scanning/
+├── exploitation/
+├── post-exploitation/
+├── reporting/
+└── README.md/
+```
 
 ---
 
