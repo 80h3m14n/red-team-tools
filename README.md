@@ -45,28 +45,46 @@ red-team-tools/
 ## 🌟 Tips & tricks
 
 
-Green Powershell
-```
-$Host.UI.RawUI.ForegroundColor = 'Green'
-```
 
-
-Command Prompt color
-Navigate to Environmental Variables > New User variable
-```
-Name: prompt
-Value: $E[1;30;104m►$E[1;37;104m $P $E[1;94;40m►$E[0m
-```
-
-Find your public IP address right on the terminal
+***Find your public IP address right on the terminal***
 ```
 curl -s wtfismyip.com/json | jq
 curl ifconfig.me
 ```
 
-Automatically install essential hacking & dev tools on a fresh linux install
+***Automatically install essential hacking & dev tools on a fresh linux install***
 
 \- [Install tools script](https://github.com/80h3m14n/red-team-tools/blob/main/automation/install-tools.sh)
+
+
+***Encrypting and decrypting files, directories, and text using multiple encryption algorithms***
+
+\- [Encryptz](https://github.com/80h3m14n/encryptz)
+
+
+
+***Change Microsoft windows themes & font type***
+
+1. Reg file(run as admin and reboot)
+\- [Segoe Print Font](https://github.com/80h3m14n/red-team-tools/blob/main/utilities/segoe-print-font.reg)
+
+
+\- You can open the file with notepad and change the font according to your preference.
+
+
+2. Green Powershell
+```
+$Host.UI.RawUI.ForegroundColor = 'Green'
+```
+
+
+3. Command Prompt color
+
+\- Navigate to Environmental Variables > New User variable
+```
+Name: prompt
+Value: $E[1;30;104m►$E[1;37;104m $P $E[1;94;40m►$E[0m
+```
 
 
 ---
