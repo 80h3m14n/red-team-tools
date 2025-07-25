@@ -1,3 +1,16 @@
+'''
+Email Bombing
+📍 Phase: Disruption / Denial-of-Service (DoS)
+
+This is technically outside traditional pentest scope
+
+It’s more aligned with Red Team / Offensive Ops or troll-level DoS
+
+Not a legit recon/exploit method — just meant to overwhelm inboxes
+
+'''
+
+
 import smtp
 
 def mail_bomber():
