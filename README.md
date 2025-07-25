@@ -54,6 +54,41 @@ curl -s wtfismyip.com/json | jq
 curl ifconfig.me
 ```
 
+## Stay anonymous
+\- ⚠️ Anonymity is not just the tool — it’s behavior. One slip (like logging into your mail or reusing usernames) can burn the whole setup.
+
+***Multi-Layered Anonymization Solution(VPN + Tor + Sandboxing)***
+1. Operating systems
+   
+\- Tails OS  
+
+\- Whonix workstation & gateway  
+
+\- Qubes OS  
+
+<br>
+
+2. Tor-Enabled Anonymization software
+\- ParrotOS anonsurf  
+
+\- [Auto_Tor_IP_changer by FDX100](https://github.com/FDX100/Auto_Tor_IP_changer )  
+
+\- [ kali-anonsurf by Und3rf10w](https://github.com/Und3rf10w/kali-anonsurf )  
+
+\- [Kalitorify by brainfucksec](https://github.com/brainfucksec/kalitorify)   
+
+\- [Anonsurf-multiplatform by SuperKPK99](https://github.com/SuperKPK99/anonsurf-multiplatform )  
+
+\- Mullvad CLI + script  
+
+\- Torghostng 
+
+\- Gluetun + Mullvad rotate (docker)  
+
+\- WireGuard key-rotate scripts  
+
+<br>
+
 ***Automatically install essential hacking & dev tools on a fresh linux install***
 
 \- [Install tools script](https://github.com/80h3m14n/red-team-tools/blob/main/automation/install-tools.sh)
