@@ -158,8 +158,14 @@ sudo() {
 }
 
 
-# clean reverse DNS lookup shortcut, powered by THC’s public IP tool 
+# Clean reverse DNS lookup shortcut, powered by THC’s public IP tool 
 rdns () {
     curl -m10 -fsSL "https://ip.thc.org/${1:?}?limit=20&f=${2}"
 }
+
+# Prepend shims to PATH
+# Hijacks Python-related stuff (and tools installed via pip/pyenv) 
+# Tell's the system to cheeck ~/.pyenv/shims  before /usr/bin
+echo 'export PATH="$HOME/.pyenv/shims:$PATH"'  
+
 
