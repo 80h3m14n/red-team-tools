@@ -166,6 +166,6 @@ rdns () {
 # Prepend shims to PATH
 # Hijacks Python-related stuff (and tools installed via pip/pyenv) 
 # Tell's the system to cheeck ~/.pyenv/shims  before /usr/bin
-echo 'export PATH="$HOME/.pyenv/shims:$PATH"'  
+export PATH="$HOME/.pyenv/shims:$PATH"  
 
 
