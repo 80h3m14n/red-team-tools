@@ -142,7 +142,7 @@ esac
 
 
 
-# Convert apt to nala
+# Alias apt - nala
 # Nala is modern with prettier output, better dependency resolution info, and faster downloads
 # Nala uses parallel fetching 
 apt() { 
