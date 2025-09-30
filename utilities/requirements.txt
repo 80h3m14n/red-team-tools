@@ -1,0 +1,38 @@
+# Core utilities
+requests
+python-dotenv
+pydantic
+
+# Data handling
+pandas
+numpy
+matplotlib
+
+# Web/API frameworks
+fastapi
+uvicorn
+flask
+django
+
+# GUI frameworks
+kivy
+pyqt6
+tkinter
+
+# ML/AI basics
+scikit-learn
+torch
+transformers
+
+# Security / pwn
+pwntools
+hashlib
+
+# Jupyter / Notebooks
+jupyter
+ipykernel
+
+# Dev tools
+black
+flake8
+pytest
