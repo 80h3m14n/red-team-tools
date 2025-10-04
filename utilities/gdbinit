@@ -3,6 +3,11 @@
 # Backup default .gdbinit
 # cp -v ~/.gdbinit ~/.gdbinit.backup.$(date +%Y%m%d_%H%M%S)
 
+# Usage
+# gdb # without plugins
+# gdb-gef /bin/ls # for gef
+# gdb-pwndbg /bin/ls # for pwndbg 
+# gdb-peda /bin/ls # for peda
 
 python
 import os,gdb
@@ -18,3 +23,7 @@ elif plugin == 'peda':
 else:
     gdb.write('Unknown GDB_PLUGIN: %s\\n' % plugin)
 end
+
+# Restore old configurations
+# cp -v ~/.gdbinit.backup.* ~/.gdbinit   # pick the file printed by the backup command earlier
+
