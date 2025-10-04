@@ -1,0 +1,12 @@
+mkdir -p ~/.local/bin
+cat > ~/.local/bin/gdb-gef <<'EOF'
+#!/usr/bin/env bash
+GEF_INIT="$HOME/.gef-2025.01.py"
+if [ ! -f "$GEF_INIT" ]; then
+  echo "gef init not found at $GEF_INIT. Check ~/.gdbinit.backup or run: find \$HOME -maxdepth 3 -type f -iname '*gef*.py'"
+  exit 1
+fi
+exec gdb -nx -q -ex "source $GEF_INIT" "$@"
+EOF
+chmod +x ~/.local/bin/gdb-gef
+export PATH="$HOME/.local/bin:$PATH"
