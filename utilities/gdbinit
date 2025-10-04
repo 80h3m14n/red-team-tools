@@ -1,0 +1,15 @@
+# Minimal chooser: set GDB_PLUGIN=gef|pwndbg|peda to load a plugin explicitly
+python
+import os,gdb
+plugin = os.getenv('GDB_PLUGIN')
+if not plugin:
+    pass
+elif plugin == 'gef':
+    gdb.execute('source ~/.gef-2025.01.py')
+elif plugin == 'pwndbg':
+    gdb.execute('source /usr/local/lib/pwndbg-gdb/gdbinit.py')
+elif plugin == 'peda':
+    gdb.execute('source ~/peda/peda.py')
+else:
+    gdb.write('Unknown GDB_PLUGIN: %s\\n' % plugin)
+end
