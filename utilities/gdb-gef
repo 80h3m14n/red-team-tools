@@ -10,3 +10,5 @@ exec gdb -nx -q -ex "source $GEF_INIT" "$@"
 EOF
 chmod +x ~/.local/bin/gdb-gef
 export PATH="$HOME/.local/bin:$PATH"
+
+# To run: gdb-gef /bin/ls
