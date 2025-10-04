@@ -1,0 +1,9 @@
+cat > ~/.local/bin/gdb-pwndbg <<'EOF'
+#!/usr/bin/env bash
+# Use the installer-provided runner which knows how to start pwndbg
+exec /usr/local/bin/pwndbg "$@"
+EOF
+chmod +x ~/.local/bin/gdb-pwndbg
+
+
+## TO tun : gdb-pwndbg /bin/ls
