@@ -200,3 +200,26 @@ function ports() {
 }
 
 
+
+# Mini termial help menu
+function helpme() {
+    echo -e "\n\033[1;36mAvailable Custom Commands:\033[0m\n"
+
+    echo -e "\033[1;33mports\033[0m      → Lists all open ports with visibility (Public/Private/Loopback)."
+    echo -e "                 Usage: ports | grep 'Public'  # show only public ports\n"
+
+    echo -e "\033[1;33mrdns <ip>\033[0m  → Reverse DNS lookup using THC’s public IP tool."
+    echo -e "                 Example: rdns 8.8.8.8\n"
+
+    echo -e "\033[1;33mapt / sudo apt\033[0m → Aliased to use nala instead of apt for faster, cleaner installs.\n"
+
+    echo -e "\033[1;33mpyenv / rbenv\033[0m → Environment managers for Python and Ruby (already loaded).\n"
+
+    echo -e "\033[1;33mpnpm\033[0m       → Node package manager (PATH pre-configured).\n"
+
+    echo -e "\033[1;33mhelpme\033[0m     → Shows this menu.\n"
+
+    echo -e "\033[1;32mTip:\033[0m You can edit ~/.bashrc to add your own aliases and drop them into this list.\n"
+}
+
+
