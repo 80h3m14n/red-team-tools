@@ -169,3 +169,34 @@ rdns () {
 export PATH="$HOME/.pyenv/shims:$PATH"  
 
 
+# Highlights only externally reachable ports
+# Usage:
+# 1. All open ports, type: ports 
+# 2. List only public-facing ports, type: ports | grep "Public"
+
+function ports() {
+    sudo ss -tulnp | awk '
+    BEGIN {
+        print "\033[1;36mProto\tState\tPort\t\tVisibility\tAddress\t\tProcess\033[0m"
+    }
+    NR>1 {
+        split($5,a,":")
+        port=a[length(a)]
+        addr=a[1]
+        gsub(/users:\(\("?/,"",$7)
+        gsub(/\)\)/,"",$7)
+
+        # determine color and visibility
+        if (addr == "127.0.0.1" || addr == "::1") {
+            color="\033[1;31m"; vis="Loopback"
+        } else if (addr == "0.0.0.0" || addr == "::" || addr == "*") {
+            color="\033[1;32m"; vis="Public"
+        } else {
+            color="\033[1;33m"; vis="Private"
+        }
+
+        printf "%s%-5s\033[0m\t%-7s\t%-8s\t%-10s\t%-15s\t%s\n", color, $1, $2, port, vis, addr, $7
+    }'
+}
+
+
