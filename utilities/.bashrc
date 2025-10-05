@@ -113,6 +113,7 @@ if ! shopt -oq posix; then
 fi
 
 
+# user-installed executables
 . "$HOME/.cargo/env"
 export PATH=$PATH:/home/ryan/Android/Sdk/platform-tools/
 export PATH=$PATH:/home/ryan/Android/Sdk/cmdline-tools/latest/bin/
@@ -124,6 +125,8 @@ export PATH=$PATH:/home/ryan/Apps/flutter/bin/
 export DOCKER_HOST=unix:///var/run/docker.sock
 export CHROME_EXECUTABLE=/usr/bin/brave-browser
 
+
+# desc: Pyenv - Python version control
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d "$PYENV_ROOT/bin" ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init - bash)"
@@ -131,20 +134,17 @@ eval "$(pyenv virtualenv-init -)"
 export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init - bash)"
 
-# pnpm
+
+# desc: pnpm - Nodejs package manager (faster than npm)
 export PNPM_HOME="/home/ryan/.local/share/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
-# pnpm end
 
 
 
-
-# Alias apt - nala
-# Nala is modern with prettier output, better dependency resolution info, and faster downloads
-# Nala uses parallel fetching 
+# desc: Uses nala instead of apt for better UX, better dependency resolution info, and faster downloads
 apt() { 
   command nala "$@"
 }
@@ -158,22 +158,17 @@ sudo() {
 }
 
 
-# Clean reverse DNS lookup shortcut, powered by THC’s public IP tool 
-rdns () {
+# desc: Reverse DNS lookup via THC’s public IP tool 
+rdns() {
     curl -m10 -fsSL "https://ip.thc.org/${1:?}?limit=20&f=${2}"
 }
 
-# Prepend shims to PATH
-# Hijacks Python-related stuff (and tools installed via pip/pyenv) 
+# Prepend shims to PATH - Hijacks Python-related stuff (tools installed via pip/pyenv) 
 # Tell's the system to cheeck ~/.pyenv/shims  before /usr/bin
 export PATH="$HOME/.pyenv/shims:$PATH"  
 
 
-# Highlights only externally reachable ports
-# Usage:
-# 1. All open ports, type: ports 
-# 2. List only public-facing ports, type: ports | grep "Public"
-
+# desc: Lists all open ports with visibility (Public/Private/Loopback)
 function ports() {
     sudo ss -tulnp | awk '
     BEGIN {
@@ -200,28 +195,51 @@ function ports() {
 }
 
 
-
-# Mini termial help menu
+# desc: Mini terminal help menu
 function helpme() {
     echo -e "\n\033[1;36m🧩  Custom Commands, Functions, and Aliases Loaded in This Shell:\033[0m\n"
 
     # === Aliases ===
     echo -e "\033[1;33mAliases:\033[0m"
-    alias | awk -F'[ =]' '{printf "  \033[1;32m%-15s\033[0m -> %s\n", $2, substr($0, index($0,$4))}'
+    awk '
+        /^alias / {
+            aliasName=$2
+            sub(/=.*/,"",aliasName)
+            print aliasName
+        }
+    ' ~/.bashrc | while read -r a; do
+        desc=$(awk -v alias="$a" '
+            $0 ~ "alias "alias"=" {
+                if (NR>1 && prev ~ /^# desc:/) {sub(/^# desc:[[:space:]]*/, "", prev); print prev; exit}
+            }
+            {prev=$0}
+        ' ~/.bashrc)
+        [ -z "$desc" ] && desc="(no description)"
+        echo -e "  \033[1;32m$a\033[0m  -  $desc"
+    done
     echo ""
 
     # === Functions ===
     echo -e "\033[1;33mFunctions:\033[0m"
-    declare -F | awk '{print "  \033[1;35m" $3 "\033[0m"}'
+    declare -F | awk '{print $3}' | while read -r func; do
+        desc=$(awk -v fn="$func" '
+            $0 ~ "(function[[:space:]]+"fn"\\(\\)|^"fn"\\(\\))" {
+                if (NR>1 && prev ~ /^# desc:/) {sub(/^# desc:[[:space:]]*/, "", prev); print prev; exit}
+            }
+            {prev=$0}
+        ' ~/.bashrc)
+        [ -z "$desc" ] && desc="(no description)"
+        echo -e "  \033[1;35m$func\033[0m  -  $desc"
+    done
     echo ""
 
-    # === Helpful Info ===
     echo -e "\033[1;34mUsage:\033[0m"
     echo -e "  Type the alias or function name directly to use it."
     echo -e "  Example: \033[1;32mports\033[0m  → Show open ports with visibility."
-    echo -e "  Example: \033[1;32mrdns 8.8.8.8\033[0m  → Reverse DNS lookup.\n"
+    echo -e "  Example: \033[1;32mrdns 8.8.8.8\033[0m  → Reverse DNS lookup."
+    echo -e "  Pipe with other commands: \033[1;32mports | grep "Public"\033[0m \n "
 
-    echo -e "\033[1;90mHint:\033[0m Add new aliases or functions to ~/.bashrc and they’ll appear here automatically next time you reload.\n"
+    echo -e "\033[1;90mHint:\033[0m Add '# desc: your description' above any alias/function in ~/.bashrc to include it automatically.\n"
 }
 
 
