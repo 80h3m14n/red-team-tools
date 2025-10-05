@@ -203,23 +203,26 @@ function ports() {
 
 # Mini termial help menu
 function helpme() {
-    echo -e "\n\033[1;36mAvailable Custom Commands:\033[0m\n"
+    echo -e "\n\033[1;36m🧩  Custom Commands, Functions, and Aliases Loaded in This Shell:\033[0m\n"
 
-    echo -e "\033[1;33mports\033[0m      → Lists all open ports with visibility (Public/Private/Loopback)."
-    echo -e "                 Usage: ports | grep 'Public'  # show only public ports\n"
+    # === Aliases ===
+    echo -e "\033[1;33mAliases:\033[0m"
+    alias | awk -F'[ =]' '{printf "  \033[1;32m%-15s\033[0m -> %s\n", $2, substr($0, index($0,$4))}'
+    echo ""
 
-    echo -e "\033[1;33mrdns <ip>\033[0m  → Reverse DNS lookup using THC’s public IP tool."
-    echo -e "                 Example: rdns 8.8.8.8\n"
+    # === Functions ===
+    echo -e "\033[1;33mFunctions:\033[0m"
+    declare -F | awk '{print "  \033[1;35m" $3 "\033[0m"}'
+    echo ""
 
-    echo -e "\033[1;33mapt / sudo apt\033[0m → Aliased to use nala instead of apt for faster, cleaner installs.\n"
+    # === Helpful Info ===
+    echo -e "\033[1;34mUsage:\033[0m"
+    echo -e "  Type the alias or function name directly to use it."
+    echo -e "  Example: \033[1;32mports\033[0m  → Show open ports with visibility."
+    echo -e "  Example: \033[1;32mrdns 8.8.8.8\033[0m  → Reverse DNS lookup.\n"
 
-    echo -e "\033[1;33mpyenv / rbenv\033[0m → Environment managers for Python and Ruby (already loaded).\n"
-
-    echo -e "\033[1;33mpnpm\033[0m       → Node package manager (PATH pre-configured).\n"
-
-    echo -e "\033[1;33mhelpme\033[0m     → Shows this menu.\n"
-
-    echo -e "\033[1;32mTip:\033[0m You can edit ~/.bashrc to add your own aliases and drop them into this list.\n"
+    echo -e "\033[1;90mHint:\033[0m Add new aliases or functions to ~/.bashrc and they’ll appear here automatically next time you reload.\n"
 }
+
 
 
