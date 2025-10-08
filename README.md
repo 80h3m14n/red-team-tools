@@ -322,10 +322,15 @@ Always verify shell stability (TTY, backgrounding)
 
 
 **Additional resources**
+
 \- [Roadmaps](https://roadmap.sh/)
+
 \- [LOLBAS project - Windows ](https://lolbas-project.github.io/)  
+
 \- [GTOBins - Linux](https://gtfobins.github.io/)
+
 \- [Atomic red team](https://github.com/redcanaryco/atomic-red-team)
+
 \- [Zero-day](https://www.zero-day.cz/)
 
 
