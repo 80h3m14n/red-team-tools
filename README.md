@@ -18,9 +18,9 @@ A collection of random custom scripts for penetration testing and red team tasks
 
 * [Tips-tricks](#-tips--tricks)
 * [Recon & Enumeration](#-recon--enumeration)
+* [Scanning](#scanning)
 * [Exploitation](#-exploitation)
 * [Post-Exploitation](#-post-exploitation)
-* [Privilege Escalation](#-privilege-escalation)
 * [Web Attacks](#-web-attacks)
 * [Password Attacks](#-password-attacks)
 * [Tools Reference](#-tools-reference)
@@ -66,7 +66,10 @@ curl ifconfig.me
 
 \- Qubes OS  
 
-<br>
+
+
+&nbsp;
+
 
 2. Tor-Enabled Anonymization software
 \- ParrotOS anonsurf  
@@ -87,7 +90,10 @@ curl ifconfig.me
 
 \- WireGuard key-rotate scripts  
 
-<br>
+
+&nbsp;
+
+
 
 ### Automation
 ***Automatically install essential hacking & dev tools on a fresh linux install***
@@ -125,6 +131,14 @@ Value: $E[1;30;104m►$E[1;37;104m $P $E[1;94;40m►$E[0m
 ```
 
 
+✅ To exploit a software, you MUST have a background knowledge of defense mechanisms used by the software
+
+✅ Figure out how to trigger an undiscovered vulnerability yourself, boom, zero day
+
+✅ Every failed exploit has a stealthier alternative
+
+
+
 ---
 
 ## 🔍 Recon & Enumeration
@@ -136,12 +150,40 @@ host domain.com
 
 # Subdomain fuzzing
 ffuf -w subs.txt -u https://FUZZ.target.com
-
-# Nmap full scan
-nmap -p- -T4 -A -v target.com
 ```
 
+
+
 ---
+
+## Scanning
+
+### Stealth Techniques
+
+To bypass firewall blocks and avoid IDS/IPS detection:
+
+\- Slow Scans: Introduce delays between packets to evade rate-based detection.
+
+```
+sudo nmap -sS -v -v -Pn 192.168.0.0/24
+```
+
+\- Fragmentation: Split packets to confuse firewalls and IDS.
+
+\- Decoy Scans: Use spoofed IPs to hide the real source and overwhelm logging systems.
+
+\- Custom Source Ports: Bypass firewall rules that allow traffic from specific ports (e.g., DNS on 53)
+
+\- Try alternative tools
+
+```
+# Nmap full scan
+nmap -p- -T4 -A -v target.com
+sudo nmap 10.0.0.1/24 --open -oG scan-results; cat scan-results | grep "/open" | cut -d " " -f 2
+```
+
+-----
+
 
 ## 💥 Exploitation
 
@@ -199,12 +241,12 @@ netstat -tulpn
 find / -perm -4000 -type f 2>/dev/null
 ```
 
+\- [LOLBAS project - Windows ](https://lolbas-project.github.io/)  
+\- [GTOBins - Linux](https://gtfobins.github.io/) 
 
 
 
----
-
-## 🧱 Privilege Escalation
+### 🧱 Privilege Escalation
 
 ```bash
 # Check kernel for exploits
@@ -277,8 +319,16 @@ Don’t sleep on SSRF, IDOR, or misconfigured cloud buckets
 
 Always verify shell stability (TTY, backgrounding)
 
-Additional resources
+
+
+**Additional resources**
 \- [Roadmaps](https://roadmap.sh/)
+\- [LOLBAS project - Windows ](https://lolbas-project.github.io/)  
+\- [GTOBins - Linux](https://gtfobins.github.io/)
+\- [Atomic red team](https://github.com/redcanaryco/atomic-red-team)
+\- [Zero-day](https://www.zero-day.cz/)
+
+
 
 ---
 
