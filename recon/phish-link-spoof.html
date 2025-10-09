@@ -1,0 +1,27 @@
+<!--- Link spoofing with PreventDefault() JavaScript method -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link Spoofing</title>
+    <style>
+        .spoof-link {
+            color: blue;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <a href="https://google.com" class="spoof-link" id="spoofLink">Google</a>
+
+    <script>
+        document.getElementById('spoofLink').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent the default action (navigating to google.com)
+            window.location.href = 'https://bing.com'; // Redirect to the malicious link
+        });
+    </script>
+</body>
+</html>
