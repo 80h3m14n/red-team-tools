@@ -18,19 +18,6 @@ A collection of random custom scripts for penetration testing and red team tasks
 * [Tools Reference](#-tools-reference)
 * [General Notes](#-general-notes)
 
------
-\- Impersonation /identity theft - the attacker creates a fake online profile to impersonate an employee and trick colleagues into disclosing confidential information.  
-\- Phishing - email, text  
-\- Pretexting -  fabricates a convincing and detailed scenario  
-\- Baiting  - lure using free gifts, software  
-\- Tailgating - follow authorized person
-\- Shoulder surf
-\- Quid pro quo - bribe  
-\- Honeypot - fake online persona  
-\- Dumpster diving - trash, trash-can   
-\- Evil twin i.e fake wi-fi Access point  
-\- Vishing (Voice phishing) - phone calls or voice messages to impersonate a legitimate entity and extract sensitive information.  
-\- Typosquatting/ URL hijacking - slight misspelling of a legitimate website.  
 
 
 📂 Repo-Structure
@@ -81,7 +68,7 @@ curl ifconfig.me
 
 ### Stay anonymous
 
-\- ⚠️ Anonymity is not just the tool — it’s behavior. One slip (like logging into your mail or reusing usernames) can burn the whole setup.
+⚠️ Anonymity is not just the tool - it’s behavior,one slip (like logging into your mail or reusing usernames) can burn the whole setup.
 
 ***Multi-Layered Anonymization Solution(VPN + Tor + Sandboxing)***
 
@@ -123,6 +110,7 @@ curl ifconfig.me
 
 
 
+
 ### Automation
 
 ***Automatically install essential hacking & dev tools on a fresh linux install***
@@ -136,7 +124,56 @@ curl ifconfig.me
 
 
 
-***Change Microsoft windows themes & font type***
+&nbsp;
+
+### Honeypot checks
+
+Possible indicators that you just got pawned:
+
+\- Network restrictions
+
+\- Monitoring tools
+
+\- Fake user environment
+
+\- Synthetic input
+
+\- Weird routing/DNS
+
+\- Low-human-activity (empty Downloads, no browser history)
+
+\- You’re root/admin by default but with tight network rules
+
+\- Logging tools or “monitor” processes running silently such as `procmon`, `wireshark`, `tcpdump`, or `sysmon`
+
+\- Host is extremely low-spec (tiny RAM/CPU, tiny disk)
+
+
+```bash
+# VM 
+reg query HKLM\SYSTEM /s | findstr /S "VirtualBox VBOX VMWare"
+systeminfo | find "Hyper-V"
+
+# MAC vendor
+getmac /v
+
+# System drivers/services
+driverquery | findstr /i "vm vbox"
+
+# Check blocked outbound connection
+ping google.com
+```
+
+
+⚠️Honeypots intentionally hide or fake everything, and advanced sandboxes will spoof user files, drivers, network, and even synthetic mouse/typing patterns.
+
+
+&nbsp;
+
+
+### Customization
+
+**Change Microsoft windows themes & font type**
 
 1. Reg file(run as admin and reboot)
 \- [Segoe Print Font](https://github.com/80h3m14n/red-team-tools/blob/main/utilities/segoe-print-font.reg)
@@ -201,6 +238,7 @@ ffuf -w subs.txt -u https://FUZZ.target.com
 \- Vishing (Voice phishing) - phone calls or voice messages to impersonate a legitimate entity and extract sensitive information.  
 
 \- Typosquatting/ URL hijacking - slight misspelling of a legitimate website. 
+
 
 
 ---
