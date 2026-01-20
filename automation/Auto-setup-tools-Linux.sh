@@ -3,21 +3,21 @@
 CATEGORIES=("recon" "scan" "exploit" "anon" "post" "dfir" "net" "misc" "labs")
 declare -A TOOLS
 
-TOOLS[recon]="dirb ffuf gobuster amass subfinder theharvester gau dnsx hakrawler netdiscover"
+TOOLS[recon]="dirb ffuf gobuster amass subfinder theharvester gau dnsx hakrawler netdiscover dnsrecon"
 TOOLS[scan]="nmap masscan arp-scan whatweb nuclei naabu enum4linux-ng wireshark tcpdump zaproxy burpsuite"
 TOOLS[exploit]="binwalk hashcat hydra metasploit sqlmap wifite cmseek bettercap"
-TOOLS[anon]="torsocks ufw openvpn proxychains kalitorify firejail macof"
+TOOLS[anon]="torsocks ufw openvpn proxychains kalitorify firejail macchanger"
 TOOLS[post]="netcat chisel ligolo-ng empire socat pspy"
 TOOLS[dfir]="exiftool steghide volatility3 autopsy binwalk bintext"
-TOOLS[net]="apache2 curl wget httpx dnsmasq websocat mitmproxy"
+TOOLS[net]="apache2 curl wget httpx dnsmasq websocat mitmproxy dnsutils etherape"
 TOOLS[misc]="qrencode scrcpy jq yq termshark neofetch"
 TOOLS[labs]="dvwa juice-shop"
 
-APPS=("7zip" "android-studio" "flutter" "blender" "openjdk-17-jdk")
+APPS=("7zip" "android-studio" "flutter" "blender" "openjdk-21-jdk")
 
 # Set up directories
 SETUP_DIRS() {
-  mkdir -p ~/Apps ~/Tools ~/Virtual-machines
+  mkdir -p ~/Utilities ~/Virtual-machines ~/Custom-scripts
 }
 
 # Update system
@@ -25,34 +25,34 @@ update_system() {
   sudo apt update && sudo apt upgrade -y
 }
 
-# Install apt-based tools
+# Install apt-based & Git tools
 install_tools() {
   for tool in ${TOOLS[$1]}; do
     echo "Installing: $tool"
     sudo apt install -y $tool || {
-      echo "Couldn't install $tool via APT. Checking if it's a git tool..."
+      echo "Failed to install $tool via APT. Checking if it's a git tool..."
 
       case $tool in
         subfinder)
-          git clone https://github.com/projectdiscovery/subfinder.git ~/Tools/subfinder
-          (cd ~/Tools/subfinder && go install)
+          go install -v github.com/projectdiscovery/subfinder/cmd/subfinder@latest
           ;;
         hakrawler)
-          git clone https://github.com/hakluke/hakrawler.git ~/Tools/hakrawler
-          (cd ~/Tools/hakrawler && go install)
+          go install github.com/hakluke/hakrawler@latest
           ;;
         gau)
-          git clone https://github.com/lc/gau.git ~/Tools/gau
-          (cd ~/Tools/gau && go install)
+          go install github.com/lc/gau/v2/cmd/gau@latest
           ;;
         ligolo-ng)
-          git clone https://github.com/nicocha30/ligolo-ng.git ~/Tools/ligolo-ng
+          git clone https://github.com/nicocha30/ligolo-ng.git ~/Utilities/ligolo-ng
           ;;
         empire)
-          git clone https://github.com/BC-SECURITY/Empire.git ~/Tools/Empire
+          git clone https://github.com/BC-SECURITY/Empire.git ~/Utilities/Empire
           ;;
         pspy)
-          git clone https://github.com/DominicBreuker/pspy.git ~/Tools/pspy
+          git clone https://github.com/DominicBreuker/pspy.git ~/Utilities/pspy
+          ;;
+        enum4linux)
+          git clone https://github.com/CiscoCXSecurity/enum4linux
           ;;
         *)
           echo "Manual setup might be required for: $tool"
