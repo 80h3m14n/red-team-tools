@@ -202,6 +202,17 @@ Value: $E[1;30;104m►$E[1;37;104m $P $E[1;94;40m►$E[0m
 ```
 
 
+**Shell customization**
+
+A custom shell refers to a user-defined command-line interface for operating systems, designed to replace or extend default shells like Bash, Zsh, or Fish for severla reasons i.e security hardening, user preferences etc
+
+1. Third party tools
+
+- [Oh My Posh](https://ohmyposh.dev/)
+- [Starship](https://starship.rs/)
+
+
+
 
 &nbsp;
 
