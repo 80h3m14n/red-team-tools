@@ -65,6 +65,9 @@ red-team-tools/
 
 ```bash
 curl -s wtfismyip.com/json | jq
+
+curl https://www.zx2c4.com/ip
+
 curl ifconfig.me
 ```
 
