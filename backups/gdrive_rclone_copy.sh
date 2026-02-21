@@ -7,10 +7,9 @@
 
 
 # Usage:
-# chmod +x ~/scripts/gdrive_backup.sh
+# chmod +x ~/scripts/gdrive_rclone_copy.sh
 # crontab -e
-# */20 * * * * flock -n /tmp/rclone_backup.lock /home/YOUR_USERNAME/scripts/rclone_backup.sh >> /home/YOUR_USERNAME/scripts/backup.log 2>&1
-
+# */20 * * * * flock -n /tmp/rclone_backup.lock /home/YOUR_USERNAME/scripts/gdrive_rclone_copy.sh >> /home/YOUR_USERNAME/scripts/backup.log 2>&1
 
 PATH=/usr/bin:/bin
 
@@ -28,7 +27,7 @@ flock -n 200 || {
 }
 
 echo "=========================================" >> "$LOGFILE"
-echo "📦 Starting Compressed Backup..." >> "$LOGFILE"
+echo "📦 Starting Hourly Compressed Backup..." >> "$LOGFILE"
 echo "🕐 $(/usr/bin/date)" >> "$LOGFILE"
 
 FOLDERS=(
@@ -46,13 +45,15 @@ FOLDERS=(
 
 for FOLDER in "${FOLDERS[@]}"; do
     SRC="$HOME/$FOLDER"
-    ARCHIVE="$TMPDIR/$FOLDER.tar.gz"
-    DEST="gdrive:LinuxCloudBackup/$FOLDER.tar.gz"
+    TIMESTAMP=$(/usr/bin/date +"%Y-%m-%d_%H-%M")
+    ARCHIVE="$TMPDIR/${FOLDER}_$TIMESTAMP.tar.gz"
+    DEST="gdrive:LinuxCloudBackup/${FOLDER}.tar.gz"
 
     if [ -d "$SRC" ]; then
         echo "🗜 Compressing $FOLDER..." >> "$LOGFILE"
 
-        /usr/bin/tar -czf "$ARCHIVE" -C "$HOME" "$FOLDER"
+        # Multi-core compression (uses all CPU cores)
+        /usr/bin/tar -I pigz -cf "$ARCHIVE" -C "$HOME" "$FOLDER"
 
         echo "☁ Uploading $FOLDER.tar.gz..." >> "$LOGFILE"
 
@@ -67,7 +68,7 @@ for FOLDER in "${FOLDERS[@]}"; do
             --log-level INFO \
             --log-file="$LOGFILE"
 
-        # Remove local temp archive after upload
+        # Remove temp archive
         rm -f "$ARCHIVE"
 
     else
@@ -75,7 +76,6 @@ for FOLDER in "${FOLDERS[@]}"; do
     fi
 done
 
-# 🔔 Desktop notification (requires libnotify-bin)
 TIME_DONE=$(/usr/bin/date)
-echo "✅ Compressed backup complete at $TIME_DONE" >> "$LOGFILE"
+echo "✅ Backup complete at $TIME_DONE" >> "$LOGFILE"
 echo "=========================================" >> "$LOGFILE"
