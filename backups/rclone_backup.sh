@@ -1,16 +1,35 @@
 #!/bin/bash
 
+# ==========================================
+# RCLONE BACKUP WITH AUTOMATIC COMPRESSION
+# Optimized for 15 Mbps / 8GB RAM / SSD
+# ==========================================
+
+
 # Usage:
-# chmod +x ~/scripts/rclone_backup.sh
+# chmod +x ~/scripts/gdrive_backup.sh
 # crontab -e
 # */20 * * * * flock -n /tmp/rclone_backup.lock /home/YOUR_USERNAME/scripts/rclone_backup.sh >> /home/YOUR_USERNAME/scripts/backup.log 2>&1
 
-#!/bin/bash
 
 PATH=/usr/bin:/bin
 
-echo "📤 Starting Sync to Google Drive..."
-echo "🕐 $(/usr/bin/date)"
+LOCKFILE="/tmp/rclone_backup.lock"
+LOGFILE="$HOME/scripts/backup.log"
+TMPDIR="$HOME/.backup_tmp"
+
+mkdir -p "$TMPDIR"
+
+# Prevent overlapping runs
+exec 200>$LOCKFILE
+flock -n 200 || {
+    echo "[$(/usr/bin/date)] Backup already running. Skipping..." >> "$LOGFILE"
+    exit 1
+}
+
+echo "=========================================" >> "$LOGFILE"
+echo "📦 Starting Compressed Backup..." >> "$LOGFILE"
+echo "🕐 $(/usr/bin/date)" >> "$LOGFILE"
 
 FOLDERS=(
     "Bug-hunting"
@@ -25,21 +44,38 @@ FOLDERS=(
     "wordlists"
 )
 
-
 for FOLDER in "${FOLDERS[@]}"; do
     SRC="$HOME/$FOLDER"
-    DEST="gdrive:LinuxCloudBackup/$FOLDER"
+    ARCHIVE="$TMPDIR/$FOLDER.tar.gz"
+    DEST="gdrive:LinuxCloudBackup/$FOLDER.tar.gz"
 
     if [ -d "$SRC" ]; then
-        echo "🔄 Syncing $FOLDER to cloud.."
-        /usr/bin/rclone sync "$SRC" "$DEST" --progress
+        echo "🗜 Compressing $FOLDER..." >> "$LOGFILE"
+
+        /usr/bin/tar -czf "$ARCHIVE" -C "$HOME" "$FOLDER"
+
+        echo "☁ Uploading $FOLDER.tar.gz..." >> "$LOGFILE"
+
+        /usr/bin/rclone copy "$ARCHIVE" "$DEST" \
+            --transfers=1 \
+            --drive-chunk-size=32M \
+            --tpslimit=5 \
+            --bwlimit=1.6M \
+            --retries=5 \
+            --low-level-retries=10 \
+            --timeout=10m \
+            --log-level INFO \
+            --log-file="$LOGFILE"
+
+        # Remove local temp archive after upload
+        rm -f "$ARCHIVE"
+
     else
-        echo "⚠️ Skipped: $FOLDER not found!."
+        echo "⚠️ Skipped: $FOLDER not found." >> "$LOGFILE"
     fi
 done
 
-TIME_DONE=$(/usr/bin/date)
-echo "✅ All backups complete at $TIME_DONE"
-
 # 🔔 Desktop notification (requires libnotify-bin)
-/usr/bin/notify-send "Rclone Backup" "✅ All folders synced at $TIME_DONE"
+TIME_DONE=$(/usr/bin/date)
+echo "✅ Compressed backup complete at $TIME_DONE" >> "$LOGFILE"
+echo "=========================================" >> "$LOGFILE"
