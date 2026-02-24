@@ -17,7 +17,6 @@ django
 # GUI frameworks
 kivy
 pyqt6
-tkinter
 
 # ML/AI basics
 scikit-learn
@@ -26,7 +25,7 @@ transformers
 
 # Security / pwn
 pwntools
-hashlib
+cryptography
 
 # Jupyter / Notebooks
 jupyter
