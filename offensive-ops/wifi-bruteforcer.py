@@ -1,4 +1,11 @@
-# Only tested on Debian 12 bookworm
+# Only tested on Debian 12 bookworm, Debian 13 Trixie, Fedora 43
+# 40% False positives
+
+# Usage:
+'''
+pip install pywifi
+python wifi-bruteforcer.py
+''' 
 
 import os
 import time
