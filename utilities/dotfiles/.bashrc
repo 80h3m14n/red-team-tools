@@ -115,13 +115,9 @@ fi
 
 # user-installed executables
 . "$HOME/.cargo/env"
-export PATH=$PATH:/home/ryan/Android/Sdk/platform-tools/
-export PATH=$PATH:/home/ryan/Android/Sdk/cmdline-tools/latest/bin/
-export PATH=$PATH:/home/ryan/Apps/android-studio/bin/
 export PATH=$PATH:/usr/local/go/bin
 export GOROOT=/usr/local/go
 export PATH=$GOROOT/bin:$PATH
-export PATH=$PATH:/home/ryan/Apps/flutter/bin/
 export DOCKER_HOST=unix:///var/run/docker.sock
 export CHROME_EXECUTABLE=/usr/bin/brave-browser
 
@@ -136,7 +132,7 @@ eval "$(rbenv init - bash)"
 
 
 # desc: pnpm - Nodejs package manager (faster than npm)
-export PNPM_HOME="/home/ryan/.local/share/pnpm"
+export PNPM_HOME="$HOME/.local/share/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
