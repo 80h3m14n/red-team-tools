@@ -25,7 +25,7 @@ sudo dnf remove -y \
 echo ""
 echo "Removing KDE Media Apps..."
 sudo dnf remove -y \
-    dragon juk elisa kamoso
+    dragon juk elisa-player kamoso
 
 echo ""
 echo "Removing KDE Games..."
@@ -46,5 +46,6 @@ echo "Disabling Baloo file indexing..."
 balooctl disable || true
 
 echo ""
+echo "Consider installing VLC & Onlyoffice(if LibreOffice not suite you)"
 echo "Cleanup complete!"
 echo "Reboot recommended."
