@@ -71,9 +71,14 @@ curl https://www.zx2c4.com/ip
 curl ifconfig.me
 ```
 
+
+&nbsp;
+
+
 ### Stay anonymous
 
-⚠️ Anonymity is not just the tool - it’s behavior,one slip (like logging into your mail or reusing usernames) can burn the whole setup.
+Anonymity relies as much on behavior as on tools: one mistake, like logging into a personal account or reusing a username, can completely expose your identity.  
+Even with privacy tools like VPNs or Tor, revealing personal information links your anonymous activity to your real self, undoing all protection.
 
 ***Multi-Layered Anonymization Solution(VPN + Tor + Sandboxing)***
 
@@ -83,9 +88,6 @@ curl ifconfig.me
 - Whonix workstation & gateway  
 - Qubes OS  
 
-
-
-&nbsp;
 
 
 2. Tor-Enabled Anonymization software
@@ -101,8 +103,18 @@ curl ifconfig.me
 - WireGuard key-rotate scripts  
 
 
-&nbsp;
+**Risks of using free public proxies**
 
+- Transparent Proxies: Over 50% fail to hide your real IP address
+- More than 5% modify content to leak sensitive data 
+- Security Vulnerabilities: Many lack HTTPS support, making users susceptible to man-in-the-middle attacks
+- They are often slow and go offline frequently
+
+⚠️VPN is recommended for most users due to its superior security, privacy, and comprehensive protection
+
+
+
+&nbsp;
 
 
 
@@ -163,6 +175,7 @@ ping google.com
 **Change Microsoft windows themes & font type**
 
 1. Reg file(run as admin and reboot)
+
 - [Segoe Print Font](https://github.com/80h3m14n/red-team-tools/blob/main/utilities/segoe-print-font.reg)
 
 - You can open the file with notepad and change the font according to your preference.
@@ -177,7 +190,7 @@ $Host.UI.RawUI.ForegroundColor = 'Green'
 
 3. Command Prompt color
 
-\- Navigate to Environmental Variables > New User variable
+- Navigate to Environmental Variables > New User variable
 ```
 Name: prompt
 Value: $E[1;30;104m►$E[1;37;104m $P $E[1;94;40m►$E[0m
