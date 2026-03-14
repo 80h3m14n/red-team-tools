@@ -75,10 +75,18 @@ curl ifconfig.me
 &nbsp;
 
 
-### Stay anonymous
+### Online privacy & anonymity
 
 Anonymity relies as much on behavior as on tools: one mistake, like logging into a personal account or reusing a username, can completely expose your identity.  
 Even with privacy tools like VPNs or Tor, revealing personal information links your anonymous activity to your real self, undoing all protection.
+
+- Privacy and anonymity are two different things
+
+1. Anonymous means unnamed or unidentified or lacking individuality, - which cannot be fully achieved online.
+For example, posting online under a pseudonym: people see what you say, but not who said it.
+
+2. Privacy is about controlling access to your personal information—deciding who sees what, even if they know it's you
+For example, sending an encrypted message to a friend: they know it's from you, but no one else can read it. 
 
 ***Multi-Layered Anonymization Solution(VPN + Tor + Sandboxing)***
 
