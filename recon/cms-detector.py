@@ -3,23 +3,29 @@ from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 from concurrent.futures import ThreadPoolExecutor
 import os
+import argparse
 
 # Fallback if you don't have the custom color/banner imports
+
+
 def clear(): os.system("cls" if os.name == "nt" else "clear")
-banner = """
-______________  __________    ________     _____           _____              
-__  ____/__   |/  /_  ___/    ___  __ \______  /_____________  /______________
-_  /    __  /|_/ /_____ \     __  / / /  _ \  __/  _ \  ___/  __/  __ \_  ___/
-/ /___  _  /  / / ____/ /     _  /_/ //  __/ /_ /  __/ /__ / /_ / /_/ /  /    
-\____/  /_/  /_/  /____/      /_____/ \___/\__/ \___/\___/ \__/ \____//_/     
+
+
+banner = r"""
+
+  _______  _______  ___  _____________________________  ___ 
+ / ___/  |/  / __/ / _ \/ __/_  __/ __/ ___/_  __/ __ \/ _ \
+/ /__/ /|_/ /\ \  / // / _/  / / / _// /__  / / / /_/ / , _/
+\___/_/  /_/___/ /____/___/ /_/ /___/\___/ /_/  \____/_/|_| 
                     CMS Detection Tool by 80h3m14n
 """
 
-# Colors (you can replace/remove if not needed)
+
 class colors:
     wh = '\033[0m'
     r = '\033[91m'
     g = '\033[92m'
+
 
 CMS_SIGNATURES = {
     'WordPress': {'meta': ['wp-content', 'wp-includes'], 'paths': ['/wp-login.php', '/wp-admin/'], 'classes': ['wp-']},
@@ -42,7 +48,8 @@ CMS_SIGNATURES = {
 }
 
 session = requests.Session()
-add_scheme = lambda url: url if urlparse(url).scheme else 'https://' + url
+def add_scheme(url): return url if urlparse(url).scheme else 'https://' + url
+
 
 def get_html(url):
     try:
@@ -51,6 +58,7 @@ def get_html(url):
         return response.text
     except requests.RequestException:
         return None
+
 
 def detect_cms(url):
     html = get_html(url)
@@ -63,6 +71,7 @@ def detect_cms(url):
             return cms
     return "Unknown"
 
+
 def save_result(url, cms):
     os.makedirs("Results", exist_ok=True)
     filename = "unknown.txt" if cms == "Unknown" else f"{cms}.txt"
@@ -70,39 +79,51 @@ def save_result(url, cms):
     with open(f"Results/{filename}", "a") as f:
         f.write(url + "\n")
 
+
 def process_url(url):
     cms = detect_cms(url)
     print(f"{colors.g}[+] {url} --> {cms}{colors.wh}")
     save_result(url, cms)
 
+
 def scan_file(file_path, thread_count=10):
     try:
         with open(file_path, 'r') as file:
-            urls = [add_scheme(url.strip()) for url in file.readlines() if url.strip()]
+            urls = [add_scheme(url.strip())
+                    for url in file.readlines() if url.strip()]
     except FileNotFoundError:
         print(f"{colors.r}File {file_path} not found.{colors.wh}")
         return
-    
+
     with ThreadPoolExecutor(max_workers=thread_count) as executor:
         executor.map(process_url, urls)
+
 
 def main():
     clear()
     print(banner)
-    file_path = input(f"{colors.g}[+] Enter path to website list: {colors.wh}")
+    parser = argparse.ArgumentParser(description="CMS Detection Tool")
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument('-f', '--file',
+                       help='Path to website list file')
+    group.add_argument('-u', '--url',
+                       help='Single URL to scan')
+    parser.add_argument('-t', '--threads', type=int, default=10,
+                        help='Number of threads (default: 10)')
+    args = parser.parse_args()
 
-    while True:
-        thread_input = input(f"{colors.g}[+] Number of threads: {colors.wh}")
-        try:
-            thread_count = int(thread_input)
-            if thread_count <= 0:
-                print(f"{colors.r}Error: Thread count must be greater than 0.{colors.wh}")
-                continue
-            break
-        except ValueError:
-            print(f"{colors.r}Error: Enter a valid number for thread count.{colors.wh}")
+    if args.threads <= 0:
+        print(f"{colors.r}Error: Thread count must be greater than 0.{colors.wh}")
+        return
 
-    scan_file(file_path, thread_count)
+    try:
+        if args.url:
+            process_url(add_scheme(args.url.strip()))
+        else:
+            scan_file(args.file, args.threads)
+    except KeyboardInterrupt:
+        print(f"\n{colors.r}Interrupted by user. Exiting...{colors.wh}")
+
 
 if __name__ == "__main__":
     main()
