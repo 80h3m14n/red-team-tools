@@ -27,7 +27,7 @@ Includes: Automation scripts, Reconnaissance tools, Scanning utilities, Exploita
    
 ```ini
 red-team-tools/
-├── automation/
+├── automation-scripts/
 ├── recon/
 ├── scanning/
 ├── exploitation/
@@ -130,7 +130,7 @@ For example, sending an encrypted message to a friend: they know it's from you, 
 
 ***Automatically install essential hacking & dev tools on a fresh linux install***
 
-- [Install tools script](https://github.com/80h3m14n/red-team-tools/blob/main/automation/install-tools.sh)
+- [Install tools script](https://github.com/80h3m14n/red-team-tools/blob/main/automation-scripts/Linux-auto-setup.sh)
 
 
 ***Encrypting and decrypting files, directories, and text using multiple encryption algorithms***
