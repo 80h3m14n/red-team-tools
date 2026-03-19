@@ -218,6 +218,14 @@ A custom shell refers to a user-defined command-line interface for operating sys
 - [Pure](https://github.com/sindresorhus/pure)
 - [Oh My Zsh](https://ohmyz.sh/)
 
+2. Custom (modern) terminals emulators
+
+- [Alacritty](https://alacritty.org/)
+- [Ghostty](https://ghostty.org/)
+- [iTerm2](https://iterm2.com/)
+- [Kitty](https://sw.kovidgoyal.net/kitty/)
+- [Warp](https://www.warp.dev/)
+- [WezTerm](https://wezterm.org/)
 
 
 
