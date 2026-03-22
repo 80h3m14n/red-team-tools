@@ -72,6 +72,30 @@ curl ifconfig.me
 ```
 
 
+**Quick search & filter**
+
+1. [fzf (Fuzzy finder](https://github.com/junegunn/fzf)
+
+fzf is a command-line tool for interactive filtering of any kind of lists; files, command history, processes, hostnames, bookmarks, git commits, etc , widely used for file navigation, command history, and process selection.
+
+```bash
+# File search
+find . -type f | fzf
+
+# Command history (Like Ctr + R)
+history | fzf
+
+# Process search
+ps aux | fzf
+
+# Basic interactive mode
+fzf < /path/to/any/list.txt
+ls -la | fzf
+````
+
+💡 Tip: Add `--preview 'cat {}'` to see file contents while browsing:
+
+
 &nbsp;
 
 
