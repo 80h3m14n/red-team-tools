@@ -95,6 +95,16 @@ ls -la | fzf
 
 💡 Tip: Add `--preview 'cat {}'` to see file contents while browsing:
 
+Keybindings in fzf work by hooking into your shell’s readline system (via bind or zle in zsh) to intercept key combinations like Ctrl+R or Ctrl+T and launch fzf interactively.
+
+```bash
+# fetch and source the keybindings
+curl -s https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.bash > ~/.fzf-key-bindings.bash
+source ~/.fzf-key-bindings.bash
+
+source ~/.fzf-key-bindings.bash
+```
+
 
 &nbsp;
 
