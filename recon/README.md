@@ -32,8 +32,21 @@ PII is protected under various laws and regulations, including the GDPR (EU), HI
 Organizations must implement safeguards like encryption, access controls, and secure data handling practices to protect PII. 
 
 
+### PII finders
+
+PII are mostly exposed in text files, images, databases, cloud storage
+
+- [AVG Sensitive data shield](https://www.avg.com/en/signal/avg-sensitive-data-shield-document-protection)
+- [CUSpider](https://www.cuit.columbia.edu/content/cuspider-pii-scanning-application)
+- [Hawk-Eye](https://github.com/rohitcoder/hawk-eye)
+- [Octopii](https://github.com/redhuntlabs/Octopii)
+- [Pdscan](https://github.com/ankane/pdscan)
+- [PIICatcher](https://github.com/tokern/piicatcher)
+- [Presidio](https://github.com/microsoft/presidio)
+- [Spirion](https://it.cornell.edu/spirion/scan-confidential-data-windows)
+
+
+&nbsp;
+
 
 "⚔️Never stop breaking things - for the right reasons."
-
-Cybercriminals target PII through phishing, data breaches, ransomware, and social engineering, making it essential for individuals and organizations to proactively secure this data.
-
