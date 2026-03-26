@@ -40,6 +40,15 @@ red-team-tools/
 
 </details>
 
+### Red team roles
+
+- Penetration tester
+- Web security tester
+- Exploit developer
+- Read team operator
+- Offensive security engineer
+- Attacker (Malicious)
+- Adversary 
 
 
 &nbsp;
