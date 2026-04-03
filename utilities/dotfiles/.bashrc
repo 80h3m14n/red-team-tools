@@ -1,157 +1,76 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
+# .bashrc
 
-# If not running interactively, don't do anything
-case $- in
-    *i*) ;;
-      *) return;;
-esac
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+    . /etc/bashrc
+fi
 
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
-HISTCONTROL=ignoreboth
+# User specific environment
+if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
+    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+fi
+export PATH
 
-# append to the history file, don't overwrite it
-shopt -s histappend
+# Uncomment the following line if you don't like systemctl's auto-paging feature:
+# export SYSTEMD_PAGER=
 
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+# Better history behavior:Prevent duplicate spam, Preserve history across sessions, Cleaner command recall
 HISTSIZE=1000
 HISTFILESIZE=2000
+HISTCONTROL=ignoreboth:erasedups
+shopt -s histappend
 
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
-shopt -s checkwinsize
+# Case-insensitive globbing
+shopt -s nocaseglob
 
-# If set, the pattern "**" used in a pathname expansion context will
-# match all files and zero or more directories and subdirectories.
-#shopt -s globstar
+# Fix small typos in cd
+shopt -s cdspell
 
-# make less more friendly for non-text input files, see lesspipe(1)
-#[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+# Auto cd (type folder name directly)
+# shopt -s autocd
 
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
+# User specific aliases and functions
+if [ -d ~/.bashrc.d ]; then
+    for rc in ~/.bashrc.d/*; do
+        if [ -f "$rc" ]; then
+            . "$rc"
+        fi
+    done
 fi
-
-# set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
-esac
-
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-#force_color_prompt=yes
-
-if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
-    else
-	color_prompt=
-    fi
-fi
-
-if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-fi
-unset color_prompt force_color_prompt
-
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
-
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
-    #alias grep='grep --color=auto'
-    #alias fgrep='fgrep --color=auto'
-    #alias egrep='egrep --color=auto'
-fi
-
-# colored GCC warnings and errors
-#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-
-# some more ls aliases
-#alias ll='ls -l'
-#alias la='ls -A'
-#alias l='ls -CF'
-
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
-
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
-fi
-
-
-# user-installed executables
+unset rc
 . "$HOME/.cargo/env"
-export PATH=$PATH:/usr/local/go/bin
-export GOROOT=/usr/local/go
-export PATH=$GOROOT/bin:$PATH
-export DOCKER_HOST=unix:///var/run/docker.sock
-export CHROME_EXECUTABLE=/usr/bin/brave-browser
 
 
-# desc: Pyenv - Python version control
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d "$PYENV_ROOT/bin" ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init - bash)"
-eval "$(pyenv virtualenv-init -)"
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init - bash)"
+# Gradle
+export PATH=$PATH:/opt/gradle/bin
 
+# Rust cargo
+source $HOME/.cargo/env
 
-# desc: pnpm - Nodejs package manager (faster than npm)
-export PNPM_HOME="$HOME/.local/share/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
+# Golang compiled binaries
+export PATH="$HOME/go/bin:$PATH"
 
+# Mise version manager for node, python, golang, cmake and more
+eval "$(~/.local/bin/mise activate bash)" 
 
+# Prevent python bytecode creation
+export PYTHONDONTWRITEBYTECODE=1
 
-# desc: Uses nala instead of apt for better UX, better dependency resolution info, and faster downloads
-apt() { 
-  command nala "$@"
-}
-sudo() {
-  if [ "$1" = "apt" ]; then
-    shift
-    command sudo nala "$@"
-  else
-    command sudo "$@"
-  fi
-}
+# Nim
+export PATH=$HOME/.nimble/bin:$PATH
+
+# GPG agent fix
+export GPG_TTY=$(tty)
+gpg-connect-agent updatestartuptty /bye >/dev/null
+
+# Starship custom shell prompt
+eval "$(starship init bash)"
+
+# Metasploit
+export PATH=$PATH:/opt/metasploit-framework/bin
+
+# Set up fzf key bindings and fuzzy completion
+eval "$(fzf --bash)"
 
 
 # desc: Reverse DNS lookup via THC’s public IP tool 
@@ -163,6 +82,10 @@ rdns() {
 # Tell's the system to cheeck ~/.pyenv/shims  before /usr/bin
 export PATH="$HOME/.pyenv/shims:$PATH"  
 
+
+# zoxide: Instant directory jumping
+# Usage: z dir-name 
+eval "$(zoxide init bash)"
 
 # desc: Lists all open ports with visibility (Public/Private/Loopback)
 function ports() {
@@ -190,6 +113,31 @@ function ports() {
     }'
 }
 
+# SSH host autocomplete from ~/.ssh/config
+_ssh_completion() {
+  local SSH_FILES=()
+  for f in "$HOME/.ssh/config" "$HOME/.ssh/config.local"; do
+    [ -e "$f" ] && SSH_FILES+=("$f")
+  done
+
+  if [ "${#SSH_FILES[@]}" -ne 0 ]; then
+    complete -o default -o nospace \
+      -W "$(awk '/^Host\s+/{ print $2 }' "${SSH_FILES[@]}")" \
+      ssh scp sftp
+  fi
+}
+_ssh_completion
+unset _ssh_completion
+
+
+# desc: Search inside files with preview (rg + fzf)
+rgi() {
+  rg --line-number --color=always --smart-case "${1:-}" |
+    fzf --ansi \
+        --preview 'bat --style=numbers --color=always {1} --line-range {2}:+20' \
+        --delimiter ':' \
+        --nth 3..
+}
 
 # desc: Mini terminal help menu
 function helpme() {
@@ -237,6 +185,3 @@ function helpme() {
 
     echo -e "\033[1;90mHint:\033[0m Add '# desc: your description' above any alias/function in ~/.bashrc to include it automatically.\n"
 }
-
-
-
