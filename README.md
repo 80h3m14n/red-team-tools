@@ -580,6 +580,7 @@ fcrackzip -v -u -D -p rockyou.txt file.zip
 To master essential cybersecurity tools like Metasploit and Burp Suite, focus on understanding their core functions and practice in legal environments.
 
 - [Metasploit framework](https://github.com/rapid7/metasploit-framework)
+- [Darkmoon](https://github.com/ASCIT31/Dark-Moon): Open source autonomous penetration testing platform, 50 specialist agents over MCP, reproducible proof of exploitation, self hosted.
 
 - [Burpsuite framework](https://portswigger.net/burp)
 
