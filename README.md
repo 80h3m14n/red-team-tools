@@ -22,7 +22,7 @@ Includes: Automation scripts, Reconnaissance tools, Scanning utilities, Exploita
 
 
 
-📂 Repo-Structure
+## Navigating the repo
 
 <details>
 <summary>📂 Click to expand</summary>
