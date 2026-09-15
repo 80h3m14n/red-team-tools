@@ -1,0 +1,8 @@
+[
+    "/?id=1",
+    "/search?q=test",
+    "/page=about",
+    "/login?user=guest",
+    "/api/v1/user?id=1",
+    "/profile?uid=5"
+]

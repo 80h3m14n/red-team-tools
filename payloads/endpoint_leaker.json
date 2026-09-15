@@ -1,0 +1,24 @@
+{
+    "common_endpoints": [
+        "/api/login",
+        "/api/register",
+        "/api/users",
+        "/api/admin",
+        "/api/v1/config"
+    ],
+    "cloud_misconfigs": [
+        "/.env",
+        "/.git/config",
+        "/sitemap.xml",
+        "/robots.txt",
+        "/aws/credentials"
+    ],
+    "developer_debug": [
+        "/debug",
+        "/dev",
+        "/test",
+        "/old",
+        "/backup",
+        "/v1/test"
+    ]
+}

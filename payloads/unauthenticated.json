@@ -1,0 +1,13 @@
+{
+    "missing-auth": [
+        "/admin",
+        "/api/admin",
+        "/api/users",
+        "/api/config",
+        "/api/settings",
+        "/.env",
+        "/debug",
+        "/private",
+        "/internal"
+    ]
+}

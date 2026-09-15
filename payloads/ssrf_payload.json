@@ -1,0 +1,11 @@
+[
+    "/fetch?url=http://127.0.0.1:80",
+    "https://%5B::ffff:127.0.0.1%5D/",
+    "/proxy?target=http://localhost/admin",
+    "/load?link=http://169.254.169.254/latest/meta-data/",
+    "/api?endpoint=file:///etc/passwd",
+    "https://%09web-attacker.com/",
+    "https://%0Aweb-attacker.com/",
+    "https://%5B::%5D/",
+    "https://%5B::1%5D%40%5B::1%5D%40web-attacker.com/"
+]

@@ -1,0 +1,23 @@
+{
+    "missing_headers": [
+        "X-Frame-Options",
+        "X-Content-Type-Options",
+        "Strict-Transport-Security",
+        "Content-Security-Policy",
+        "Referrer-Policy",
+        "Permissions-Policy"
+    ],
+    "weak_values": {
+        "X-Frame-Options": [
+            "ALLOW-FROM",
+            "SAMEORIGIN"
+        ],
+        "Content-Security-Policy": [
+            "unsafe-inline",
+            "unsafe-eval"
+        ],
+        "Strict-Transport-Security": [
+            "max-age=0"
+        ]
+    }
+}

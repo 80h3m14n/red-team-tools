@@ -1,0 +1,6 @@
+[
+    "/redirect?url=https://evil.com",
+    "/login?next=https://attacker.com",
+    "/out?to=//evil.com",
+    "/go?target=http://malicious.site"
+]

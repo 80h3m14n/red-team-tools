@@ -1,0 +1,32 @@
+{
+    "http-verbs": [
+        {
+            "method": "GET",
+            "path": "/api/deleteUser"
+        },
+        {
+            "method": "PUT",
+            "path": "/api/createUser"
+        },
+        {
+            "method": "DELETE",
+            "path": "/api/config"
+        },
+        {
+            "method": "OPTIONS",
+            "path": "/api/settings"
+        },
+        {
+            "method": "TRACE",
+            "path": "/admin"
+        },
+        {
+            "method": "CONNECT",
+            "path": "/api/private"
+        },
+        {
+            "method": "HEAD",
+            "path": "/api/token"
+        }
+    ]
+}

