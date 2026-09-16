@@ -1,13 +1,16 @@
 # Minimal chooser: set GDB_PLUGIN=gef|pwndbg|peda to load a plugin explicitly
 
-# Backup default .gdbinit
-# cp -v ~/.gdbinit ~/.gdbinit.backup.$(date +%Y%m%d_%H%M%S)
+# IMPORTANT:
+# 1. Backup default .gdbinit
+#     cp -v ~/.gdbinit ~/.gdbinit.backup.$(date +%Y%m%d_%H%M%S)
+# 2. Adjust the plugins paths as needed
+# 3. Copy the plugin wrappers (e.g for pwndbg https://github.com/80h3m14n/red-team-tools/blob/main/utilities/gdb-pwndbg )
 
-# Usage
-# gdb # without plugins
-# gdb-gef /bin/ls # for gef
-# gdb-pwndbg /bin/ls # for pwndbg 
-# gdb-peda /bin/ls # for peda
+# USAGE:
+# gdb                # GDB without plugins
+# gdb-gef /bin/ls    # GDB_PLUGIN=gef gdb
+# gdb-pwndbg /bin/ls # GDB_PLUGIN=pwndbg gdb
+# gdb-peda /bin/ls   # GDB_PLUGIN=peda gdb
 
 python
 import os,gdb
