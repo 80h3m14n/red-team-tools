@@ -10,16 +10,6 @@ import pyperclip  # pip install pyperclip
 
 # --- Banner ---
 BANNER = r"""
-   
-  
-██     ██  ██████  ██████  ██████  ██      ██ ███████ ████████     ██     ██ ██ ███████  █████  ██████  ██████  
-██     ██ ██    ██ ██   ██ ██   ██ ██      ██ ██         ██        ██     ██ ██    ███  ██   ██ ██   ██ ██   ██ 
-██  █  ██ ██    ██ ██████  ██   ██ ██      ██ ███████    ██        ██  █  ██ ██   ███   ███████ ██████  ██   ██ 
-██ ███ ██ ██    ██ ██   ██ ██   ██ ██      ██      ██    ██        ██ ███ ██ ██  ███    ██   ██ ██   ██ ██   ██ 
- ███ ███   ██████  ██   ██ ██████  ███████ ██ ███████    ██         ███ ███  ██ ███████ ██   ██ ██   ██ ██████  
-                                                                                                                                                                       
-
-                                                    
         Custom Wordlist Generator (CUPP++ Clone)
 """
 
@@ -417,8 +407,7 @@ def main():
         while True:
             user_input = input("\nInput: ").strip()
             if user_input.lower() == "I":
-                interactive_shell()
-                return
+                return interactive_shell()
             elif not user_input:
                 print("Exiting.")
                 sys.exit(0)
