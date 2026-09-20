@@ -13,7 +13,7 @@ fi
 # PATH
 # ============================================================
 
-# Add a directory to PATH only if it isn't already present.
+# desc: Add a directory to PATH (only if it isn't already present).
 path_add() {
     case ":$PATH:" in
         *":$1:"*) ;;
@@ -45,7 +45,13 @@ path_add "$ANDROID_HOME/cmdline-tools/latest/bin"
 path_add "$ANDROID_HOME/emulator"
 path_add "$ANDROID_HOME/platform-tools"
 
+
 export PATH
+
+# desc: inspect PATH properly
+path() {
+    printf '%s\n' "$PATH" | tr ':' '\n' | nl
+}
 
 
 # ============================================================
@@ -53,6 +59,7 @@ export PATH
 # ============================================================
 
 # Mise manages Python, Ruby, Rust, Node, etc.
+# desc: unified multi-language version manager
 eval "$(mise activate bash)"
 
 
@@ -80,6 +87,7 @@ shopt -s nocaseglob
 shopt -s cdspell
 
 # Auto cd (type folder name directly)
+# Set and unset shell options.
 # shopt -s autocd
 
 
@@ -96,6 +104,27 @@ if [ -d ~/.bashrc.d ]; then
 fi
 unset rc
 
+
+# desc: Reload bashrc file
+alias reload='source ~/.bashrc'
+
+
+# ============================================================
+# Git shortcuts
+# ============================================================
+
+# desc: git status
+alias gs='git status'
+# desc: git add
+alias ga='git add'
+# desc: git commit
+alias gc='git commit'
+# desc: git push
+alias gp='git push'
+# desc: git log
+alias gl='git log --oneline --graph --decorate'
+# desc: git diff
+alias gd='git diff'
 
 # ============================================================
 # Python
@@ -114,7 +143,7 @@ gpg-connect-agent updatestartuptty /bye >/dev/null
 
 
 # ============================================================
-# Starship
+# Starship: Shell output formatter
 # ============================================================
 
 eval "$(starship init bash)"
@@ -124,22 +153,38 @@ eval "$(starship init bash)"
 # fzf
 # ============================================================
 
+# desc: fast fuzzy finder
 eval "$(fzf --bash)"
 
+
+# desc: fuzzy kill process
+fkill() {
+    local pid
+
+    pid=$(ps -eo pid,comm --sort=-%cpu |
+        fzf --height 40% --reverse |
+        awk '{print $1}')
+
+    [[ -n "$pid" ]] && kill "$pid"
+}
 
 # ============================================================
 # zoxide
 # ============================================================
 
+# desc: a smarter cd command
 eval "$(zoxide init bash)"
+
+# Example usage: z /Doc # finds and cd to directory with Doc
 
 
 # ============================================================
-# Custom commands
+# Network commands
 # ============================================================
 
 # desc: Reverse DNS lookup via THC's public IP tool
 rdns() {
+
     curl -m10 -fsSL "https://ip.thc.org/${1:?}?limit=20&f=${2}"
 }
 
@@ -172,7 +217,7 @@ function ports() {
 
 
 # ============================================================
-# SSH host autocomplete
+# SSH host auto complete
 # ============================================================
 
 _ssh_completion() {
@@ -206,6 +251,36 @@ rgi() {
             --nth 3..
 }
 
+# ============================================================
+# myip
+# ============================================================
+
+# desc: Show public and local IP Address
+myip() {
+    echo "Local:"
+    ip -br addr show
+
+    echo
+    echo "Public:"
+    curl -fsS https://api.ipify.org
+    echo
+}
+
+# ============================================================
+# sysinfo
+# ============================================================
+
+# desc: Machine overview/system information
+sysinfo() {
+    clear
+    echo "🖥️  Host:     $(hostname)"
+    echo "🐧 OS:       $(. /etc/os-release && echo "$PRETTY_NAME")"
+    echo "🧠 Kernel:   $(uname -r)"
+    echo "🏗️  Arch:     $(uname -m)"
+    echo "⏱️  Uptime:   $(uptime -p)"
+    echo "💾 Memory:   $(free -h | awk '/^Mem:/ {print $3 " / " $2}')"
+    echo "💽 Disk:     $(df -h / | awk 'NR==2 {print $3 " / " $2 " (" $5 ")"}')"
+}
 
 # ============================================================
 # Help menu
@@ -213,67 +288,95 @@ rgi() {
 
 # desc: Mini terminal help menu
 function helpme() {
-    echo -e "\n\033[1;36m🧩  Custom Commands, Functions, and Aliases Loaded in This Shell:\033[0m\n"
+    echo -e "\n\033[1;36m🧩  Custom Commands, Functions, and Aliases\033[0m\n"
 
-    # === Aliases ===
+
+    # Aliases
+    # ========================================================
+
     echo -e "\033[1;33mAliases:\033[0m"
 
     awk '
-        /^alias / {
-            aliasName=$2
-            sub(/=.*/, "", aliasName)
-            print aliasName
+        /^# desc:/ {
+            desc=$0
+            sub(/^# desc:[[:space:]]*/, "", desc)
+            next
         }
-    ' ~/.bashrc | while read -r a; do
 
-        desc=$(awk -v alias="$a" '
-            $0 ~ "alias "alias"=" {
-                if (NR > 1 && prev ~ /^# desc:/) {
-                    sub(/^# desc:[[:space:]]*/, "", prev)
-                    print prev
-                    exit
-                }
-            }
-            {prev=$0}
-        ' ~/.bashrc)
+        /^alias[[:space:]]+/ {
+            name=$2
+            sub(/=.*/, "", name)
 
-        [ -z "$desc" ] && desc="(no description)"
+            printf "  \033[1;32m%-15s\033[0m - %s\n",
+                   name,
+                   (desc ? desc : "(no description)")
 
-        echo -e "  \033[1;32m$a\033[0m  -  $desc"
-    done
+            desc=""
+        }
+
+        !/^#/ && !/^alias[[:space:]]+/ {
+            desc=""
+        }
+    ' ~/.bashrc
 
     echo ""
 
-    # === Functions ===
+
+    # Functions
+    # ========================================================
+
     echo -e "\033[1;33mFunctions:\033[0m"
 
-    declare -F | awk '{print $3}' | while read -r func; do
+    awk '
+        /^# desc:/ {
+            desc=$0
+            sub(/^# desc:[[:space:]]*/, "", desc)
+            next
+        }
 
-        desc=$(awk -v fn="$func" '
-            $0 ~ "(function[[:space:]]+"fn"\\(\\)|^"fn"\\(\\))" {
-                if (NR > 1 && prev ~ /^# desc:/) {
-                    sub(/^# desc:[[:space:]]*/, "", prev)
-                    print prev
-                    exit
-                }
-            }
-            {prev=$0}
-        ' ~/.bashrc)
+        /^[a-zA-Z_][a-zA-Z0-9_]*[[:space:]]*\(\)[[:space:]]*\{/ {
+            name=$0
+            sub(/[[:space:]]*\(.*/, "", name)
 
-        [ -z "$desc" ] && desc="(no description)"
+            printf "  \033[1;35m%-15s\033[0m - %s\n",
+                   name,
+                   (desc ? desc : "(no description)")
 
-        echo -e "  \033[1;35m$func\033[0m  -  $desc"
-    done
+            desc=""
+        }
+
+        /^function[[:space:]]+[a-zA-Z_][a-zA-Z0-9_]*[[:space:]]*\(/ {
+            name=$0
+            sub(/^function[[:space:]]+/, "", name)
+            sub(/[[:space:]]*\(.*/, "", name)
+
+            printf "  \033[1;35m%-15s\033[0m - %s\n",
+                   name,
+                   (desc ? desc : "(no description)")
+
+            desc=""
+        }
+
+        !/^#/ &&
+        !/^alias[[:space:]]+/ &&
+        !/^[a-zA-Z_][a-zA-Z0-9_]*[[:space:]]*\(\)/ &&
+        !/^function[[:space:]]+/ {
+            desc=""
+        }
+    ' ~/.bashrc
 
     echo ""
 
+    # ========================================================
+    # Usage
+    # ========================================================
+
     echo -e "\033[1;34mUsage:\033[0m"
-    echo -e "  Type the alias or function name directly to use it."
+    echo "  Type the alias or function name directly to use it."
     echo -e "  Example: \033[1;32mports\033[0m  → Show open ports with visibility."
     echo -e "  Example: \033[1;32mrdns 8.8.8.8\033[0m  → Reverse DNS lookup."
     echo -e "  Pipe with other commands: \033[1;32mports | grep \"Public\"\033[0m"
 
     echo ""
-    echo -e "\033[1;90mHint:\033[0m Add '# desc: your description' above any alias/function in ~/.bashrc to include it automatically.\n"
+    echo -e "\033[1;90mHint:\033[0m Add '# desc: description' before an alias or function to document it."
 }
-
